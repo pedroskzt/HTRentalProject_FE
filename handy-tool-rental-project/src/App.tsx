@@ -18,12 +18,17 @@ const App: React.FC = () => {
     setSelectedButton(view);
   };
 
+  const handleLoginSuccess = () => {
+    setCurrentView("profile");
+    setSelectedButton("profile");
+  };
+
   const renderThirdPanelContent = () => {
     switch (currentView) {
       case "home":
         return <HomePanel />;
       case "login":
-        return <LoginPanel />;
+        return <LoginPanel onLoginSuccess={handleLoginSuccess} />;
       case "product":
         return <ProductPanel />;
       case "cart":
@@ -39,7 +44,7 @@ const App: React.FC = () => {
 
   return (
     <div className="app-container">
-      <div className="panel panel-top">
+      <div className="panel panel-header">
         <div className="d-flex mb-3">
           <div className="me-auto p-2">
             <img
@@ -50,7 +55,9 @@ const App: React.FC = () => {
             />
           </div>
           <div className="p-2">
-            <p></p>
+            <h2 className="font-monospace">
+              &nbsp;&nbsp;&nbsp;HANDY TOOL RENTAL&nbsp;&nbsp;&nbsp;
+            </h2>
           </div>
           <div className="p-2">
             <button
@@ -60,7 +67,7 @@ const App: React.FC = () => {
               }`}
               onClick={() => handleButtonClick("home")}
             >
-              Home
+              HOME
             </button>
             <button
               type="button"
@@ -114,7 +121,7 @@ const App: React.FC = () => {
         {/* This panel can contain static or navigation content */}
 
         <div className="imagePanel">
-          <img src="/temp-image-holder.jpg" alt="RentalImage" />
+          <img src="/ht-rental-image.jpg" alt="RentalImage" />
         </div>
       </div>
       <div className="panel panel-bottom">{renderThirdPanelContent()}</div>
