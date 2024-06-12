@@ -46,7 +46,7 @@ const App: React.FC = () => {
     <div className="app-container">
       <div className="panel panel-header">
         <div className="d-flex mb-3">
-          <div className="me-auto p-2">
+          <div className="p-2">
             <img
               src="/temp-logo.jpg"
               alt="Logo"
@@ -64,55 +64,58 @@ const App: React.FC = () => {
               type="button"
               className={`btn ${
                 selectedButton === "home" ? "btn-primary" : "btn-dark"
-              }`}
+              } btn-lg`}
               onClick={() => handleButtonClick("home")}
             >
               HOME
+            </button>
+            <button type="button" className="btn btn-outline-light">
+              &nbsp;
             </button>
             <button
               type="button"
               className={`btn ${
                 selectedButton === "login" ? "btn-primary" : "btn-dark"
-              }`}
+              } btn-lg`}
               onClick={() => handleButtonClick("login")}
             >
-              Login
+              LOGIN
+            </button>
+            <button type="button" className="btn btn-outline-light">
+              &nbsp;
             </button>
             <button
               type="button"
               className={`btn ${
                 selectedButton === "product" ? "btn-primary" : "btn-dark"
-              }`}
+              } btn-lg`}
               onClick={() => handleButtonClick("product")}
             >
-              Product
+              PRODUCT
+            </button>
+            <button type="button" className="btn btn-outline-light">
+              &nbsp;
             </button>
             <button
               type="button"
               className={`btn ${
                 selectedButton === "cart" ? "btn-primary" : "btn-dark"
-              }`}
+              } btn-lg`}
               onClick={() => handleButtonClick("cart")}
             >
-              Rental Cart
+              CART
+            </button>
+            <button type="button" className="btn btn-outline-light">
+              &nbsp;
             </button>
             <button
               type="button"
               className={`btn ${
                 selectedButton === "profile" ? "btn-primary" : "btn-dark"
-              }`}
+              } btn-lg`}
               onClick={() => handleButtonClick("profile")}
             >
-              Profile
-            </button>
-            <button
-              type="button"
-              className={`btn ${
-                selectedButton === "support" ? "btn-primary" : "btn-dark"
-              }`}
-              onClick={() => handleButtonClick("support")}
-            >
-              Support
+              PROFILE
             </button>
           </div>
         </div>
