@@ -60,7 +60,7 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
       ) : (
         <div>
           <div className="col-md-12">
-            <h2 className="text-center font-monospace">&nbsp;LOGIN</h2>
+            <h2 className="text-center font-monospace">&nbsp;Login</h2>
           </div>
 
           <form className="row g-3 needs-validation" onSubmit={handleLogin}>
@@ -111,26 +111,6 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
                 &nbsp;
               </label>
             </div>
-            <div className="col-md-2">
-              <label htmlFor="passwordHelpInline" className="form-label">
-                &nbsp;
-              </label>
-            </div>
-            <div className="col-md-4">
-              <span id="passwordHelpInline" className="form-text">
-                <p className="fw-semibold">Format: email@test.com</p>
-              </span>
-            </div>
-            <div className="col-md-4">
-              <span id="passwordHelpInline" className="form-text">
-                <p className="fw-semibold">Must be 3-10 characters long</p>
-              </span>
-            </div>
-            <div className="col-md-2">
-              <label htmlFor="passwordHelpInline" className="form-label">
-                &nbsp;
-              </label>
-            </div>
 
             <div className="col-md-2">
               <label htmlFor="memberAlready" className="form-label">
@@ -147,12 +127,7 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
               </button>
               {error && <div className="error">{error}</div>}
             </div>
-            <div className="col-md-4">
-              <label htmlFor="memberAlready" className="form-label">
-                &nbsp;
-              </label>
-            </div>
-            <div className="col-md-2">
+            <div className="col-md-6">
               <label htmlFor="memberAlready" className="form-label">
                 &nbsp;
               </label>
