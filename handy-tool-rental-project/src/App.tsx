@@ -64,7 +64,7 @@ const App: React.FC = () => {
               type="button"
               className={`btn ${
                 selectedButton === "home" ? "btn-primary" : "btn-dark"
-              } btn-lg`}
+              }`}
               onClick={() => handleButtonClick("home")}
             >
               HOME
@@ -76,7 +76,7 @@ const App: React.FC = () => {
               type="button"
               className={`btn ${
                 selectedButton === "login" ? "btn-primary" : "btn-dark"
-              } btn-lg`}
+              }`}
               onClick={() => handleButtonClick("login")}
             >
               LOGIN
@@ -88,7 +88,7 @@ const App: React.FC = () => {
               type="button"
               className={`btn ${
                 selectedButton === "product" ? "btn-primary" : "btn-dark"
-              } btn-lg`}
+              }`}
               onClick={() => handleButtonClick("product")}
             >
               PRODUCT
@@ -100,7 +100,7 @@ const App: React.FC = () => {
               type="button"
               className={`btn ${
                 selectedButton === "cart" ? "btn-primary" : "btn-dark"
-              } btn-lg`}
+              }`}
               onClick={() => handleButtonClick("cart")}
             >
               CART
@@ -112,7 +112,7 @@ const App: React.FC = () => {
               type="button"
               className={`btn ${
                 selectedButton === "profile" ? "btn-primary" : "btn-dark"
-              } btn-lg`}
+              }`}
               onClick={() => handleButtonClick("profile")}
             >
               PROFILE
