@@ -48,7 +48,7 @@ const App: React.FC = () => {
         <div className="d-flex mb-3">
           <div className="p-2">
             <img
-              src="/temp-logo.jpg"
+              src="/ht-rental-logo.png"
               alt="Logo"
               max-width="100px"
               height="auto"
