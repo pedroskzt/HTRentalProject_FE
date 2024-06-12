@@ -59,99 +59,121 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
         <RegistrationForm />
       ) : (
         <div>
-          <div className="col-md-4">
-            <h2 className="login-panel font-monospace">&nbsp;LOGIN</h2>
+          <div className="col-md-12">
+            <h2 className="text-center font-monospace">&nbsp;LOGIN</h2>
           </div>
 
           <form className="row g-3 needs-validation" onSubmit={handleLogin}>
-            <div className="row g-3 align-items-top">
-              <div className="col-auto">
-                <label htmlFor="username" className="col-form-label">
-                  <p className="fw-bold">&nbsp;&nbsp;&nbsp;USERNAME</p>
-                </label>
-              </div>
-              <div className="col-auto">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="username"
-                  name="username"
-                  placeholder="Username"
-                  aria-label="Username"
-                  autoComplete="off"
-                  required
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <div className="col-auto">
-                <span id="passwordHelpInline" className="form-text">
-                  <p className="fw-semibold">Format: email@test.com</p>
+            <div className="col-md-2">
+              <label htmlFor="username" className="form-label">
+                &nbsp;
+              </label>
+            </div>
+            <div className="col-md-4">
+              <label htmlFor="username" className="form-label">
+                <span id="emailLabel" className="fw-bold">
+                  Username
                 </span>
-              </div>
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="username"
+                name="username"
+                placeholder="Username"
+                aria-label="Username"
+                autoComplete="off"
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
-            <div className="row g-3 align-items-top">
-              <div className="col-auto">
-                <label htmlFor="password" className="col-form-label">
-                  <p className="fw-bold">&nbsp;&nbsp;&nbsp;PASSWORD</p>
-                </label>
-              </div>
-              <div className="col-auto">
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  autoComplete="off"
-                  placeholder="Password"
-                  aria-label="Password"
-                  aria-describedby="passwordHelpInline"
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="col-auto">
-                <span id="passwordHelpInline" className="form-text">
-                  <p className="fw-semibold">Must be 3-10 characters long</p>
+            <div className="col-md-4">
+              <label htmlFor="password" className="form-label">
+                <span id="passwordLabel" className="fw-bold">
+                  Password
                 </span>
-              </div>
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                autoComplete="off"
+                placeholder="Password"
+                aria-label="Password"
+                aria-describedby="passwordHelpInline"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="col-md-2">
+              <label htmlFor="username" className="form-label">
+                &nbsp;
+              </label>
+            </div>
+            <div className="col-md-2">
+              <label htmlFor="passwordHelpInline" className="form-label">
+                &nbsp;
+              </label>
+            </div>
+            <div className="col-md-4">
+              <span id="passwordHelpInline" className="form-text">
+                <p className="fw-semibold">Format: email@test.com</p>
+              </span>
+            </div>
+            <div className="col-md-4">
+              <span id="passwordHelpInline" className="form-text">
+                <p className="fw-semibold">Must be 3-10 characters long</p>
+              </span>
+            </div>
+            <div className="col-md-2">
+              <label htmlFor="passwordHelpInline" className="form-label">
+                &nbsp;
+              </label>
             </div>
 
-            <div className="row g-3 align-items-top">
-              <div className="col-auto">
-                <p></p>
-              </div>
-              <div className="col-auto">
-                <p className="fw-semibold">Already a member?</p>
-              </div>
-              <div className="col-auto">
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Logging in..." : "Login"}
-                </button>
-                {error && <div className="error">{error}</div>}
-              </div>
+            <div className="col-md-2">
+              <label htmlFor="memberAlready" className="form-label">
+                &nbsp;
+              </label>
+            </div>
+            <div className="col-md-4">
+              <button
+                className="btn btn-primary"
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? "Logging in..." : "Login"}
+              </button>
+              {error && <div className="error">{error}</div>}
+            </div>
+            <div className="col-md-4">
+              <label htmlFor="memberAlready" className="form-label">
+                &nbsp;
+              </label>
+            </div>
+            <div className="col-md-2">
+              <label htmlFor="memberAlready" className="form-label">
+                &nbsp;
+              </label>
             </div>
 
-            <div className="row g-3 align-items-top">
-              <div className="col-auto">
-                <p></p>
-              </div>
-              <div className="col-auto">
-                <p className="fw-semibold">Not yet registered?</p>
-              </div>
-
-              <div className="col-auto">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  onClick={toggleForm}
-                >
-                  Register
-                </button>
-              </div>
+            <div className="col-md-2">
+              <p className="text-lg-end fw-bold">Not a member yet?</p>
+            </div>
+            <div className="col-md-6">
+              <button
+                type="button"
+                className="btn btn-outline-success"
+                onClick={toggleForm}
+              >
+                Register
+              </button>
+            </div>
+            <div className="col-md-4">
+              <label htmlFor="notMember" className="form-label">
+                &nbsp;
+              </label>
             </div>
           </form>
         </div>
