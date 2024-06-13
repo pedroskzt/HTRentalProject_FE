@@ -5,6 +5,7 @@ import ProductPanel from "./components/ProductPanel";
 import RentalCartPanel from "./components/RentalCartPanel";
 import ProfilePanel from "./components/ProfilePanel";
 import SupportPanel from "./components/SupportPanel";
+import HomeCarousel from "./components/HomeCarousel";
 
 // Define the possible views for the third panel
 type View = "home" | "login" | "product" | "cart" | "profile" | "support";
@@ -44,33 +45,27 @@ const App: React.FC = () => {
 
   return (
     <div className="app-container">
+      {/* This panel is the header part */}
       <div className="panel panel-header">
-        <div className="d-flex mb-3">
-          <div className="p-2">
+        <nav className="navbar bg-body-tertiary">
+          <form className="container-fluid justify-content-start">
             <img
               src="/ht-rental-logo.png"
               alt="Logo"
-              max-width="100px"
+              max-width="80px"
               height="auto"
             />
-          </div>
-          <div className="p-2">
             <h2 className="font-monospace">
-              &nbsp;&nbsp;&nbsp;HANDY TOOL RENTAL&nbsp;&nbsp;&nbsp;
+              &nbsp;Handy Tool Rental&nbsp;&nbsp;&nbsp;
             </h2>
-          </div>
-          <div className="p-2">
             <button
-              type="button"
               className={`btn ${
                 selectedButton === "home" ? "btn-primary" : "btn-dark"
               }`}
+              type="button"
               onClick={() => handleButtonClick("home")}
             >
-              HOME
-            </button>
-            <button type="button" className="btn btn-outline-light">
-              &nbsp;
+              Home
             </button>
             <button
               type="button"
@@ -79,10 +74,7 @@ const App: React.FC = () => {
               }`}
               onClick={() => handleButtonClick("login")}
             >
-              LOGIN
-            </button>
-            <button type="button" className="btn btn-outline-light">
-              &nbsp;
+              Login
             </button>
             <button
               type="button"
@@ -91,10 +83,7 @@ const App: React.FC = () => {
               }`}
               onClick={() => handleButtonClick("product")}
             >
-              PRODUCT
-            </button>
-            <button type="button" className="btn btn-outline-light">
-              &nbsp;
+              Product
             </button>
             <button
               type="button"
@@ -103,10 +92,7 @@ const App: React.FC = () => {
               }`}
               onClick={() => handleButtonClick("cart")}
             >
-              CART
-            </button>
-            <button type="button" className="btn btn-outline-light">
-              &nbsp;
+              Cart
             </button>
             <button
               type="button"
@@ -115,18 +101,18 @@ const App: React.FC = () => {
               }`}
               onClick={() => handleButtonClick("profile")}
             >
-              PROFILE
+              Profile
             </button>
-          </div>
-        </div>
+          </form>
+        </nav>
       </div>
-      <div className="panel panel-middle">
-        {/* This panel can contain static or navigation content */}
 
-        <div className="imagePanel">
-          <img src="/ht-rental-image.jpg" alt="RentalImage" />
-        </div>
+      {/* This panel can contain static or navigation content */}
+      <div className="panel panel-middle">
+        <HomeCarousel />
       </div>
+
+      {/* This panel contains the user input and information */}
       <div className="panel panel-bottom">{renderThirdPanelContent()}</div>
     </div>
   );
