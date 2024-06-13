@@ -53,6 +53,7 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
       setIsLoading(false);
     }
   };
+
   return (
     <div>
       {isRegistering ? (
