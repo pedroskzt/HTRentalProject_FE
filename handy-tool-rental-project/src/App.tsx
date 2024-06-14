@@ -6,6 +6,7 @@ import RentalCartPanel from "./components/RentalCartPanel";
 import ProfilePanel from "./components/ProfilePanel";
 import SupportPanel from "./components/SupportPanel";
 import HomeCarousel from "./components/HomeCarousel";
+import "./App.css";
 
 // Define the possible views for the third panel
 type View = "home" | "login" | "product" | "cart" | "profile" | "support";
@@ -44,20 +45,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="App d-flex flex-column min-vh-100">
       {/* This panel is the header part */}
       <div className="panel panel-header">
         <nav className="navbar bg-body-tertiary">
           <form className="container-fluid justify-content-start">
             <img
-              src="/ht-rental-logo.png"
+              src="/ht-rental-logo.jpg"
               alt="Logo"
               max-width="80px"
               height="auto"
             />
-            <h2 className="font-monospace">
-              &nbsp;Handy Tool Rental&nbsp;&nbsp;&nbsp;
-            </h2>
+            <div className="text-header-section">
+              &nbsp;&nbsp;&nbsp;Handy Tool (HT) Rental&nbsp;&nbsp;&nbsp;
+            </div>
+
             <button
               className={`btn ${
                 selectedButton === "home" ? "btn-primary" : "btn-dark"
@@ -114,6 +116,11 @@ const App: React.FC = () => {
 
       {/* This panel contains the user input and information */}
       <div className="panel panel-bottom">{renderThirdPanelContent()}</div>
+
+      {/* Footer */}
+      <footer className="bg-dark text-white text-left p-3 mt-auto footer">
+        HT Tool Rental. All Rights Reserved (2024).
+      </footer>
     </div>
   );
 };

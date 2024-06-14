@@ -1,8 +1,71 @@
 /* App.css */
+.carousel-container {
+    max-width: 600px; /* Adjust the max-width as needed */
+    margin: 0 auto; /* Center the carousel */
+  }
+
 .carousel-img {
     width: 100%; /* Ensures the image takes the full width of the carousel item */
     max-height: 250px; /* Adjust this value to set the maximum height */
     object-fit: cover; /* Ensures the image covers the area without stretching */
   }
   
+  .text-header-section {
+    font-family: 'Georgia', serif; /* Change to any desired font */
+    font-size: 1.9rem; /* Adjust the font size as needed */
+    color: #333; /* Text color */
+    line-height: 1.6; /* Line height for better readability */
+    padding: 1px; /* Padding around the text */
+    background-color: #f3f5fa; /* Background color */
+    border-radius: 1px; /* Rounded corners */
+    text-align: center;
+    vertical-align:middle;
+  }
   
+  .text-section {
+    font-family: 'Georgia', serif; /* Change to any desired font */
+    font-size: 1.2rem; /* Adjust the font size as needed */
+    color: #333; /* Text color */
+    line-height: 1.6; /* Line height for better readability */
+    padding: 20px; /* Padding around the text */
+    background-color: #879de2; /* Background color */
+    border-radius: 10px; /* Rounded corners */
+ 
+  }
+  
+  .text-section h2 {
+    font-size: 3rem; /* Heading font size */
+    margin-bottom: 30px; /* Space below the heading */
+  }
+  
+  .text-center {
+    text-align: center; /* Center align text */
+  }
+
+  .btn-header {
+    font-family: 'Georgia', serif; /* Change to any desired font */
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    color: #c91515; /* Text color */
+    line-height: 1.6; /* Line height for better readability */
+    padding: 20px; /* Padding around the text */
+    
+    border-radius: 10px; /* Rounded corners */
+ 
+  }
+
+  html, body, .App {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .App {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer {
+    height: 50px; /* Adjust the height as needed */
+    padding: 0; /* Ensure padding does not affect height */
+    font-family: 'Georgia', serif; /* Change to any desired font */
+    font-size: 1.0rem; /* Adjust the font size as needed */
+  }
