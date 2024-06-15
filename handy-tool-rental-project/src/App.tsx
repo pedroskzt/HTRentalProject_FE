@@ -51,7 +51,7 @@ const App: React.FC = () => {
         <nav className="navbar bg-body-tertiary">
           <form className="container-fluid justify-content-start">
             <img
-              src="/ht-rental-logo.jpg"
+              src="/ht-rental-logo2.png"
               alt="Logo"
               max-width="80px"
               height="auto"
