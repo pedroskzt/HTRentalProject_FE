@@ -1,4 +1,19 @@
 /* App.css */
+:root {
+  --white: #FFFFFF;
+  --black: #000000;
+  --blue: #110ace;
+  --lightblue:  #7592e9;
+  --mono: monospace;
+  --georgia: Georgia, serif;
+}
+
+.btn-header {
+  font-family: var(--georgia) !important; /* Change to any desired font */
+  font-size: 1.5rem; /* Adjust the font size as needed */
+  border-radius: 3px; /* Rounded corners */
+}
+
 .carousel-container {
     max-width: 600px; /* Adjust the max-width as needed */
     margin: 0 auto; /* Center the carousel */
@@ -9,9 +24,13 @@
     max-height: 250px; /* Adjust this value to set the maximum height */
     object-fit: cover; /* Ensures the image covers the area without stretching */
   }
+
+.carousel-text {
+  font-family: var(--georgia); /* Change to any desired font */
+}
   
   .text-header-section {
-    font-family: 'Georgia', serif; /* Change to any desired font */
+    font-family: var(--georgia); /* Change to any desired font */
     font-size: 1.9rem; /* Adjust the font size as needed */
     color: #333; /* Text color */
     line-height: 1.6; /* Line height for better readability */
@@ -23,12 +42,12 @@
   }
   
   .text-section {
-    font-family: 'Georgia', serif; /* Change to any desired font */
+    font-family: var(--georgia); /* Change to any desired font */
     font-size: 1.2rem; /* Adjust the font size as needed */
-    color: #333; /* Text color */
+    color: var(--black); /* Text color */
     line-height: 1.6; /* Line height for better readability */
     padding: 20px; /* Padding around the text */
-    background-color: #879de2; /* Background color */
+    background-color: var(--lightblue); /* Background color */
     border-radius: 10px; /* Rounded corners */
  
   }
@@ -42,17 +61,6 @@
     text-align: center; /* Center align text */
   }
 
-  .btn-header {
-    font-family: 'Georgia', serif; /* Change to any desired font */
-    font-size: 1.5rem; /* Adjust the font size as needed */
-    color: #c91515; /* Text color */
-    line-height: 1.6; /* Line height for better readability */
-    padding: 20px; /* Padding around the text */
-    
-    border-radius: 10px; /* Rounded corners */
- 
-  }
-
   html, body, .App {
     height: 100%;
     margin: 0;
@@ -61,6 +69,26 @@
   .App {
     display: flex;
     flex-direction: column;
+  }
+
+  .page-section {
+    font-family: var(--georgia); /* Change to any desired font */
+    font-size: 1.0rem; /* Heading font size */
+    color: var(--black); /* Text color */
+    line-height: 1.0; /* Line height for better readability */
+    padding: 1px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+  }
+
+  .page-section h2 {
+    font-size: 2rem; /* Heading font size */
+    margin-bottom: 8px; /* Space below the heading */
+  }
+
+  .btn-main {
+    font-family: var(--georgia); /* Change to any desired font */
+    font-size: 1.0rem; /* Heading font size */
+    line-height: 1.0; /* Line height for better readability */
   }
 
   .footer {
