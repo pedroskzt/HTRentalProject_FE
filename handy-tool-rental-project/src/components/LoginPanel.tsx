@@ -1,13 +1,14 @@
-// LoginPanel.tsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RegistrationForm from "./RegistrationForm";
 
-interface LoginPanelProps {
-  onLoginSuccess: () => void;
-}
+type View = "home" | "login" | "product" | "cart" | "profile";
 
-const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
+const LoginPanel: React.FC = () => {
+  const [currentView, setCurrentView] = useState<View>("login");
+  const [selectedButton, setSelectedButton] = useState<string>("login");
   const [isRegistering, setIsRegistering] = useState(false);
+  const navigate = useNavigate();
 
   const toggleForm = () => {
     setIsRegistering(!isRegistering);
@@ -42,7 +43,8 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
       // Response available
       if (response.status === 200) {
         console.log("Login successful: Data" + response.body);
-        onLoginSuccess();
+        navigate("/profile");
+        // onLoginSuccess();
       } else {
         console.error("Login failed. Message=", response.statusText);
         setError(response.statusText || "Login failed");
@@ -60,8 +62,8 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
         <RegistrationForm />
       ) : (
         <div>
-          <div className="col-md-12">
-            <h2 className="text-center font-monospace">&nbsp;Login</h2>
+          <div className="col-md-12 page-section">
+            <h2 className="text-center">&nbsp;Login</h2>
           </div>
 
           <form className="row g-3 needs-validation" onSubmit={handleLogin}>
@@ -70,7 +72,7 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
                 &nbsp;
               </label>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 page-section">
               <label htmlFor="username" className="form-label">
                 <span id="emailLabel" className="fw-bold">
                   Username
@@ -85,10 +87,11 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
                 aria-label="Username"
                 autoComplete="off"
                 required
+                value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 page-section">
               <label htmlFor="password" className="form-label">
                 <span id="passwordLabel" className="fw-bold">
                   Password
@@ -104,6 +107,7 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
                 aria-label="Password"
                 aria-describedby="passwordHelpInline"
                 required
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -118,15 +122,17 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
                 &nbsp;
               </label>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 btn-main">
               <button
-                className="btn btn-primary"
+                className="btn btn-primary fw-bold"
+                name="login"
+                id="login"
                 type="submit"
                 disabled={isLoading}
               >
                 {isLoading ? "Logging in..." : "Login"}
               </button>
-              {error && <div className="error">{error}</div>}
+              {error && <div className="text-danger">{error}</div>}
             </div>
             <div className="col-md-6">
               <label htmlFor="memberAlready" className="form-label">
@@ -134,13 +140,13 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
               </label>
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-2 page-section">
               <p className="text-lg-end fw-bold">Not a member yet?</p>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 page-section">
               <button
                 type="button"
-                className="btn btn-outline-success"
+                className="btn btn-outline-success fw-bold"
                 onClick={toggleForm}
               >
                 Register

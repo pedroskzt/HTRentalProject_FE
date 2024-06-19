@@ -12,7 +12,7 @@ const HomeCarousel: React.FC = () => {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>Tooling made simple.</h3>
+          <h3 className="carousel-text">Tooling made simple.</h3>
         </Carousel.Caption>
       </Carousel.Item>
 
@@ -23,7 +23,7 @@ const HomeCarousel: React.FC = () => {
           alt="Second slide"
         />
         <Carousel.Caption>
-          <h3>Rent. Use. Return. Repeat.</h3>
+          <h3 className="carousel-text">Rent. Use. Return. Repeat.</h3>
         </Carousel.Caption>
       </Carousel.Item>
 
@@ -34,8 +34,8 @@ const HomeCarousel: React.FC = () => {
           alt="Third slide"
         />
         <Carousel.Caption>
-          <h3>HT Rental</h3>
-          <p>Your Project Partner.</p>
+          <h3 className="carousel-text">HT Rental</h3>
+          <p className="carousel-text">Your Project Partner.</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
