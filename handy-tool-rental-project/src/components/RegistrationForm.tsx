@@ -64,7 +64,7 @@ const RegistrationForm: React.FC = () => {
       if (response.status === 200 || response.status === 201) {
         console.log("Registration successful: Data" + response.body);
         // onRegisterSuccess();
-        navigate("/profile");
+        navigate("/login");
       } else {
         console.error("Registration failed. Message=", response.statusText);
         setError(response.statusText || "Registration failed");

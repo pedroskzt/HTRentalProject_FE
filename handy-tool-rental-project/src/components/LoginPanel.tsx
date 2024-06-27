@@ -12,6 +12,7 @@ const LoginPanel: React.FC = () => {
 
   const toggleForm = () => {
     setIsRegistering(!isRegistering);
+    navigate("/register");
   };
 
   /* This is for the Login validation*/
@@ -44,7 +45,6 @@ const LoginPanel: React.FC = () => {
       if (response.status === 200) {
         console.log("Login successful: Data" + response.body);
         navigate("/profile");
-        // onLoginSuccess();
       } else {
         console.error("Login failed. Message=", response.statusText);
         setError(response.statusText || "Login failed");
