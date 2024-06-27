@@ -29,71 +29,71 @@
   font-family: var(--georgia); /* Change to any desired font */
 }
   
-  .text-header-section {
-    font-family: var(--georgia); /* Change to any desired font */
-    font-size: 1.9rem; /* Adjust the font size as needed */
-    color: #333; /* Text color */
-    line-height: 1.6; /* Line height for better readability */
-    padding: 1px; /* Padding around the text */
-    background-color: #f3f5fa; /* Background color */
-    border-radius: 1px; /* Rounded corners */
-    text-align: center;
-    vertical-align:middle;
-  }
-  
-  .text-section {
-    font-family: var(--georgia); /* Change to any desired font */
-    font-size: 1.2rem; /* Adjust the font size as needed */
-    color: var(--black); /* Text color */
-    line-height: 1.6; /* Line height for better readability */
-    padding: 20px; /* Padding around the text */
-    background-color: var(--lightblue); /* Background color */
-    border-radius: 10px; /* Rounded corners */
- 
-  }
-  
-  .text-section h2 {
-    font-size: 3rem; /* Heading font size */
-    margin-bottom: 30px; /* Space below the heading */
-  }
-  
-  .text-center {
-    text-align: center; /* Center align text */
-  }
+.text-header-section {
+  font-family: var(--georgia); /* Change to any desired font */
+  font-size: 1.9rem; /* Adjust the font size as needed */
+  color: #333; /* Text color */
+  line-height: 1.6; /* Line height for better readability */
+  padding: 1px; /* Padding around the text */
+  background-color: #f3f5fa; /* Background color */
+  border-radius: 1px; /* Rounded corners */
+  text-align: center;
+  vertical-align:middle;
+}
 
-  html, body, .App {
-    height: 100%;
-    margin: 0;
-  }
-  
-  .App {
-    display: flex;
-    flex-direction: column;
-  }
+.text-section {
+  font-family: var(--georgia); /* Change to any desired font */
+  font-size: 1.2rem; /* Adjust the font size as needed */
+  color: var(--black); /* Text color */
+  line-height: 1.6; /* Line height for better readability */
+  padding: 20px; /* Padding around the text */
+  background-color: var(--lightblue); /* Background color */
+  border-radius: 10px; /* Rounded corners */
 
-  .page-section {
-    font-family: var(--georgia); /* Change to any desired font */
-    font-size: 1.0rem; /* Heading font size */
-    color: var(--black); /* Text color */
-    line-height: 1.0; /* Line height for better readability */
-    padding: 1px; /* Padding around the text */
-    border-radius: 5px; /* Rounded corners */
-  }
+}
 
-  .page-section h2 {
-    font-size: 2rem; /* Heading font size */
-    margin-bottom: 8px; /* Space below the heading */
-  }
+.text-section h2 {
+  font-size: 3rem; /* Heading font size */
+  margin-bottom: 30px; /* Space below the heading */
+}
 
-  .btn-main {
-    font-family: var(--georgia); /* Change to any desired font */
-    font-size: 1.0rem; /* Heading font size */
-    line-height: 1.0; /* Line height for better readability */
-  }
+.text-center {
+  text-align: center; /* Center align text */
+}
 
-  .footer {
-    height: 50px; /* Adjust the height as needed */
-    padding: 0; /* Ensure padding does not affect height */
-    font-family: 'Georgia', serif; /* Change to any desired font */
-    font-size: 1.0rem; /* Adjust the font size as needed */
-  }
+html, body, .App {
+  height: 100%;
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-section {
+  font-family: var(--georgia); /* Change to any desired font */
+  font-size: 1.0rem; /* Heading font size */
+  color: var(--black); /* Text color */
+  line-height: 1.0; /* Line height for better readability */
+  padding: 1px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.page-section h2 {
+  font-size: 2rem; /* Heading font size */
+  margin-bottom: 8px; /* Space below the heading */
+}
+
+.btn-main {
+  font-family: var(--georgia); /* Change to any desired font */
+  font-size: 1.0rem; /* Heading font size */
+  line-height: 1.0; /* Line height for better readability */
+}
+
+.footer {
+  height: 50px; /* Adjust the height as needed */
+  padding: 0; /* Ensure padding does not affect height */
+  font-family: 'Georgia', serif; /* Change to any desired font */
+  font-size: 1.0rem; /* Adjust the font size as needed */
+}
