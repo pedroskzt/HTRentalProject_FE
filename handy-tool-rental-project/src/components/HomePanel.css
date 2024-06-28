@@ -1,0 +1,29 @@
+/* HomePanel.css */
+.home-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .left-section, .right-section {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .left-section {
+    background-color: #f0f0f0;
+  }
+  
+  .right-section {
+    background-color: #e0e0e0;
+  }
+  
+  .text-section {
+    text-align: center;
+  }
+  
+  
