@@ -29,45 +29,64 @@ const App: React.FC = () => {
               className={`btn btn-lg btn-header ${
                 activeButton === "home" ? "btn-primary" : "btn-secondary"
               }`}
+              style={{ marginRight: "10px" }}
               onClick={() => handleButtonClick("home")}
             >
               Home
-            </Link>{" "}
+              <i className="fa-solid fa-house" style={{ marginLeft: "5px" }} />
+            </Link>
             <Link
               to="/login"
               className={`btn btn-lg btn-header ${
                 activeButton === "login" ? "btn-primary" : "btn-secondary"
               }`}
+              style={{ marginRight: "10px" }}
               onClick={() => handleButtonClick("login")}
             >
               Login
-            </Link>{" "}
+              <i
+                className="fa-solid fa-right-to-bracket"
+                style={{ marginLeft: "5px" }}
+              />
+            </Link>
             <Link
               to="/product"
               className={`btn btn-lg btn-header ${
                 activeButton === "product" ? "btn-primary" : "btn-secondary"
               }`}
+              style={{ marginRight: "10px" }}
               onClick={() => handleButtonClick("product")}
             >
               Product
-            </Link>{" "}
+              <i
+                className="fa-solid fa-screwdriver-wrench"
+                style={{ marginLeft: "5px" }}
+              />
+            </Link>
             <Link
               to="/cart"
               className={`btn btn-lg btn-header ${
                 activeButton === "cart" ? "btn-primary" : "btn-secondary"
               }`}
+              style={{ marginRight: "10px" }}
               onClick={() => handleButtonClick("cart")}
             >
               Cart
-            </Link>{" "}
+              <i
+                className="fa-solid fa-cart-shopping"
+                style={{ marginLeft: "5px" }}
+              />
+            </Link>
             <Link
               to="/profile"
               className={`btn btn-lg btn-header ${
                 activeButton === "profile" ? "btn-primary" : "btn-secondary"
               }`}
+              style={{ marginRight: "10px" }}
               onClick={() => handleButtonClick("profile")}
             >
               Profile
+              <i className="fa-solid fa-user" style={{ marginLeft: "5px" }} />
             </Link>
           </nav>
         </div>

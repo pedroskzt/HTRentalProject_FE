@@ -8,10 +8,43 @@
   --georgia: Georgia, serif;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--georgia); /* Change to any desired font */
+}
+
+
+html, body, .App {
+  height: 100%;
+  margin: 0;
+}
+
+
+.page-section {
+  /*font-family: var(--georgia); /* Change to any desired font */
+  font-size: 1.0rem; /* Heading font size */
+  color: var(--black); /* Text color */
+  line-height: 1.0; /* Line height for better readability */
+  padding: 1px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.page-section h2 {
+  font-size: 2rem; /* Heading font size */
+  margin-bottom: 8px; /* Space below the heading */
+}
+
 .btn-header {
-  font-family: var(--georgia) !important; /* Change to any desired font */
+  /*font-family: var(--georgia) !important; /* Change to any desired font */
   font-size: 1.5rem; /* Adjust the font size as needed */
   border-radius: 3px; /* Rounded corners */
+}
+
+.btn-main {
+  /*font-family: var(--georgia); /* Change to any desired font */
+  font-size: 1.0rem; /* Heading font size */
+  line-height: 1.0; /* Line height for better readability */
 }
 
 .carousel-container {
@@ -30,7 +63,7 @@
 }
   
 .text-header-section {
-  font-family: var(--georgia); /* Change to any desired font */
+  /*font-family: var(--georgia); /* Change to any desired font */
   font-size: 1.9rem; /* Adjust the font size as needed */
   color: #333; /* Text color */
   line-height: 1.6; /* Line height for better readability */
@@ -42,7 +75,7 @@
 }
 
 .text-section {
-  font-family: var(--georgia); /* Change to any desired font */
+  /*font-family: var(--georgia); /* Change to any desired font */
   font-size: 1.2rem; /* Adjust the font size as needed */
   color: var(--black); /* Text color */
   line-height: 1.6; /* Line height for better readability */
@@ -61,34 +94,12 @@
   text-align: center; /* Center align text */
 }
 
-html, body, .App {
-  height: 100%;
-  margin: 0;
+.text-product-title {
+  color: var(--blue);
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-}
-
-.page-section {
-  font-family: var(--georgia); /* Change to any desired font */
-  font-size: 1.0rem; /* Heading font size */
-  color: var(--black); /* Text color */
-  line-height: 1.0; /* Line height for better readability */
-  padding: 1px; /* Padding around the text */
-  border-radius: 5px; /* Rounded corners */
-}
-
-.page-section h2 {
-  font-size: 2rem; /* Heading font size */
-  margin-bottom: 8px; /* Space below the heading */
-}
-
-.btn-main {
-  font-family: var(--georgia); /* Change to any desired font */
-  font-size: 1.0rem; /* Heading font size */
-  line-height: 1.0; /* Line height for better readability */
+.text-italic {
+  font-style: italic;
 }
 
 .footer {
