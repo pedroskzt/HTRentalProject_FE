@@ -32,7 +32,14 @@ html, body, .App {
 
 .page-section h2 {
   font-size: 2rem; /* Heading font size */
+  margin-top: 8px;
   margin-bottom: 8px; /* Space below the heading */
+}
+
+.page-section h3 {
+  font-size: 2rem; /* Heading font size */
+  margin-top: 6px;
+  margin-bottom: 2px; /* Space below the heading */
 }
 
 .btn-header {
@@ -88,6 +95,11 @@ html, body, .App {
 .text-section h2 {
   font-size: 3rem; /* Heading font size */
   margin-bottom: 30px; /* Space below the heading */
+}
+
+.text-section h3 {
+  font-size: 2rem; /* Heading font size */
+  margin-bottom: 20px; /* Space below the heading */
 }
 
 .text-center {
