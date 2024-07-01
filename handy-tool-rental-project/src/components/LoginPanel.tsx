@@ -131,6 +131,10 @@ const LoginPanel: React.FC = () => {
                 disabled={isLoading}
               >
                 {isLoading ? "Logging in..." : "Login"}
+                <i
+                  className="fa-solid fa-right-to-bracket"
+                  style={{ marginLeft: "5px" }}
+                />
               </button>
               {error && <div className="text-danger">{error}</div>}
             </div>
@@ -150,6 +154,10 @@ const LoginPanel: React.FC = () => {
                 onClick={toggleForm}
               >
                 Register
+                <i
+                  className="fa-solid fa-address-card"
+                  style={{ marginLeft: "5px" }}
+                />
               </button>
             </div>
             <div className="col-md-4">

@@ -252,6 +252,10 @@ const RegistrationForm: React.FC = () => {
             disabled={isLoading}
           >
             {isLoading ? "Registering in..." : "Register"}
+            <i
+              className="fa-solid fa-address-card"
+              style={{ marginLeft: "5px" }}
+            />
           </button>
           {error && <div className="text-danger">{error}</div>}
         </div>
