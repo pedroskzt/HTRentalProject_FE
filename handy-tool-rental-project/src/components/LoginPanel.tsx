@@ -63,7 +63,12 @@ const LoginPanel: React.FC = () => {
       ) : (
         <div>
           <div className="col-md-12 page-section">
-            <h2 className="text-center">&nbsp;Login</h2>
+            <h3 className="text-center">Login</h3>
+          </div>
+          <div>
+            <p>
+              <hr />
+            </p>
           </div>
 
           <form className="row g-3 needs-validation" onSubmit={handleLogin}>

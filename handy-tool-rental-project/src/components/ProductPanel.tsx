@@ -124,6 +124,11 @@ const ProductPanel: React.FC = () => {
           <form onSubmit={handleSubmit}>
             {/** Filter Category */}
             <h3>Filter Products</h3>
+            <div>
+              <p>
+                <hr />
+              </p>
+            </div>
             {/* ALL */}
             <div className="form-check">
               <input
@@ -243,6 +248,11 @@ const ProductPanel: React.FC = () => {
         {/* Card for products */}
         <div className="col-md-8">
           <h3>Products</h3>
+          <div>
+            <p>
+              <hr />
+            </p>
+          </div>
           {products.length > 0 ? (
             products.map((product) => (
               <div
@@ -305,7 +315,7 @@ const ProductPanel: React.FC = () => {
               </div>
             ))
           ) : (
-            <p>No products to display</p>
+            <p className="text-danger">No products to display</p>
           )}
         </div>
       </div>
