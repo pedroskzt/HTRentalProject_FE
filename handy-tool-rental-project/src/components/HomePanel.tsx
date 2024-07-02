@@ -1,6 +1,5 @@
-
 import React from "react";
-import "./HomePanel.css"; // Ensure you create and import the CSS file for styling
+import "../HomePanel.css";
 
 const HomePanel: React.FC = () => {
   return (
@@ -10,7 +9,8 @@ const HomePanel: React.FC = () => {
         <div className="text-section">
           <h2>About Us</h2>
           <p>
-          Welcome to Handy Rental Tools, your trusted source for all your tool rental needs!
+            Welcome to Handy Rental Tools, your trusted source for all your tool
+            rental needs!
           </p>
         </div>
       </div>
@@ -19,7 +19,8 @@ const HomePanel: React.FC = () => {
         <div className="text-section">
           <h2>Explore Our Tools</h2>
           <p>
-            Browse through our extensive collection of tools and find the perfect one for your needs.
+            Browse through our extensive collection of tools and find the
+            perfect one for your needs.
           </p>
         </div>
       </div>
