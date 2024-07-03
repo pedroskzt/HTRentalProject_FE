@@ -66,9 +66,7 @@ const LoginPanel: React.FC = () => {
             <h3 className="text-center">Login</h3>
           </div>
           <div>
-            <p>
-              <hr />
-            </p>
+            <hr />
           </div>
 
           <form className="row g-3 needs-validation" onSubmit={handleLogin}>

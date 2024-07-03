@@ -11,7 +11,10 @@ interface Product {
   id: number;
   name: string;
   description: string;
-  category: Category;
+  category: {
+    id: number;
+    name: string;
+  };
   price: number;
   image_name: string;
 }
@@ -23,19 +26,22 @@ const ProductPanel: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [dataError, setDataError] = useState<string>(
+    "Server error. Please try again."
+  );
   const navigate = useNavigate();
 
   /** URLs for filter categories */
   const urlAll =
     "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/All";
   const urlDrillsAndHammer =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/tools/category?category_name=Drills %26 Hammers";
+    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/1";
   const urlCuttingAndConcrete =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/tools/category?category_name=Cutting %26 Concrete";
+    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/2";
   const urlFloorCareAndSanding =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/tools/category?category_name=Floor Care %26 Sanding";
+    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/3";
   const urlByID =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/tools/1";
+    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/";
 
   const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedOptionValue = e.target.value;
@@ -81,7 +87,7 @@ const ProductPanel: React.FC = () => {
           activeURL = urlFloorCareAndSanding;
           break;
         case "byID":
-          activeURL = urlByID;
+          activeURL = `${urlByID}${toolID}`;
           break;
         default:
           activeURL = urlAll;
@@ -92,25 +98,38 @@ const ProductPanel: React.FC = () => {
 
       console.log("Raw response data:", data);
 
-      if (Array.isArray(data)) {
-        setProducts(data);
-        console.log("Fetched data:", data);
+      if (data.user_error) {
+        console.log("400 error:", data.user_error);
+        setError(data.user_error);
+        setDataError(data.user_error);
+        setProducts([]);
+        throw new Error(data.user_error);
       } else {
-        throw new Error("Response is not an array.");
+        if (Array.isArray(data)) {
+          setProducts(data);
+          console.log("Fetched data:", data);
+        } else {
+          throw new Error("Response is not an array.");
+        }
       }
 
       if (response.ok || response.status === 200) {
         console.log("Filter product successful: Data" + response.body);
       } else {
-        console.error("Filter product failed. Message=", response.statusText);
-        setError(response.statusText || "Filter product failed");
-        throw new Error("Filter product error.");
+        if (response.status === 400) {
+          console.error(dataError);
+          setError(dataError);
+          throw new Error(dataError);
+        } else {
+          console.error("Filter product failed. Message=", response.statusText);
+          setError(response.statusText || "Filter product failed");
+          throw new Error("Filter product error.");
+        }
       }
     } catch (error) {
       console.error("error:" + error);
-      setError("An error occurred. Please try again.");
-      setIsLoading(false);
-      throw new Error("Server response error. Please try again.");
+      setError(dataError);
+      throw new Error(dataError);
     } finally {
       setIsLoading(false);
     }
@@ -125,9 +144,7 @@ const ProductPanel: React.FC = () => {
             {/** Filter Category */}
             <h3>Filter Products</h3>
             <div>
-              <p>
-                <hr />
-              </p>
+              <hr />
             </div>
             {/* ALL */}
             <div className="form-check">
@@ -249,14 +266,12 @@ const ProductPanel: React.FC = () => {
         <div className="col-md-8">
           <h3>Products</h3>
           <div>
-            <p>
-              <hr />
-            </p>
+            <hr />
           </div>
           {products.length > 0 ? (
             products.map((product) => (
               <div
-                key={product.id}
+                key={product.id ? product.id : 0}
                 className="card mb-3"
                 style={{
                   maxWidth: "740px",
@@ -267,7 +282,7 @@ const ProductPanel: React.FC = () => {
                     <img
                       src={`/${product.image_name}.jpeg`}
                       className="card-img-top p-2"
-                      alt={product.name}
+                      alt={product.image_name}
                       style={{
                         maxWidth: "180px",
                         height: "auto",
@@ -276,11 +291,16 @@ const ProductPanel: React.FC = () => {
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
-                      <h4 className="text-product-title">{product.name}</h4>
+                      <h4 className="text-product-title">
+                        {product.name ? product.name : "Unkonwn"}
+                      </h4>
                       <h6 className="text-italic">
-                        Category: {product.category.name}
+                        Category:{" "}
+                        {product.category ? product.category.name : "Unknown"}
                       </h6>
-                      <p className="card-text">{product.description}</p>
+                      <p className="card-text">
+                        {product.description ? product.description : "Unknown"}
+                      </p>
                       <p className="card-text">
                         <button
                           type="button"
@@ -292,7 +312,7 @@ const ProductPanel: React.FC = () => {
                             className="fa-solid fa-dollar-sign"
                             style={{ marginRight: "5px" }}
                           />
-                          {product.price}
+                          {product.price ? product.price : "0.0"}
                         </button>
 
                         <button
@@ -315,7 +335,9 @@ const ProductPanel: React.FC = () => {
               </div>
             ))
           ) : (
-            <p className="text-danger">No products to display</p>
+            <p className="text-danger">
+              {error ? error : "No products available."}
+            </p>
           )}
         </div>
       </div>

@@ -82,9 +82,7 @@ const RegistrationForm: React.FC = () => {
         <h3 className="text-center">Registration</h3>
       </div>
       <div>
-        <p>
-          <hr />
-        </p>
+        <hr />
       </div>
 
       <form className="row g-3 needs-validation" onSubmit={handleSubmit}>
