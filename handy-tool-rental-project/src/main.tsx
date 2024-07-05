@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
 import App from "./App";
 import LoginPanel from "./components/LoginPanel";
 import ProfilePanel from "./components/ProfilePanel";
@@ -8,11 +9,10 @@ import RegistrationForm from "./components/RegistrationForm";
 import HomePanel from "./components/HomePanel";
 import ProductPanel from "./components/ProductPanel";
 import RentalCartPanel from "./components/RentalCartPanel";
-
-import "bootstrap/dist/css/bootstrap.css";
 import ChangePasswordForm from "./components/ChangePasswordForm";
 import UpdateUserInfoForm from "./components/UpdateUserInfoForm";
 import RentalHistoryForm from "./components/RentalHistoryForm";
+import { AuthorizationProvider } from "./components/AuthorizationContext";
 
 const Main: React.FC = () => {
   return (
@@ -38,6 +38,8 @@ const Main: React.FC = () => {
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Main />
+    <AuthorizationProvider>
+      <Main />
+    </AuthorizationProvider>
   </React.StrictMode>
 );
