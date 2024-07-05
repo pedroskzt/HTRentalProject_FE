@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RegistrationForm from "./RegistrationForm";
+import { useAuthorization } from "./AuthorizationContext";
 
 type View = "home" | "login" | "product" | "cart" | "profile";
 
@@ -9,6 +10,7 @@ const LoginPanel: React.FC = () => {
   const [selectedButton, setSelectedButton] = useState<string>("login");
   const [isRegistering, setIsRegistering] = useState(false);
   const navigate = useNavigate();
+  const { setAccessToken } = useAuthorization();
 
   const toggleForm = () => {
     setIsRegistering(!isRegistering);
@@ -43,7 +45,9 @@ const LoginPanel: React.FC = () => {
 
       // Response available
       if (response.status === 200) {
-        console.log("Login successful: Data" + response.body);
+        //console.log("Login successful: Data" + response.body);
+        //console.log("token:", data.access);
+        setAccessToken(data.access);
         navigate("/profile");
       } else {
         console.error("Login failed. Message=", response.statusText);

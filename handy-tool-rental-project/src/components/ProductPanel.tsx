@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { defer, useNavigate } from "react-router-dom";
 import "../App.css";
+import { useAuthorization } from "./AuthorizationContext";
 
 interface Category {
   id: number;
@@ -30,6 +31,7 @@ const ProductPanel: React.FC = () => {
     "Server error. Please try again."
   );
   const navigate = useNavigate();
+  const { accessToken } = useAuthorization();
 
   /** URLs for filter categories */
   const urlAll =
@@ -68,8 +70,13 @@ const ProductPanel: React.FC = () => {
     setIsLoading(true);
     setError(null);
 
-    /** TODO: Modify this for authentication check */
-    setIsAuthenticated(true);
+    /** Authentication check */
+    if (accessToken) {
+      console.log("There is access token.");
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
 
     try {
       let activeURL = urlAll;
