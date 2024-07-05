@@ -52,12 +52,13 @@ const ProfilePanel: React.FC = () => {
             <hr />
             {/* Change Password */}
             <nav>
+              {" "}
               <Link
                 to="/changePassword"
                 className="btn btn-outline-primary fw-bold"
                 id="profileChangePassword"
                 type="button"
-                style={{ marginRight: "10px" }}
+                style={{ marginLeft: "24px" }}
                 onClick={() => handleButtonClick("changePassword")}
               >
                 Change Password{" "}
@@ -70,7 +71,7 @@ const ProfilePanel: React.FC = () => {
                 className="btn btn-outline-success fw-bold"
                 id="profileUpdateUserInfo"
                 type="button"
-                style={{ marginRight: "10px" }}
+                style={{ marginLeft: "24px" }}
                 onClick={() => handleButtonClick("updateUserInfo")}
               >
                 Update User Info{" "}
@@ -86,7 +87,7 @@ const ProfilePanel: React.FC = () => {
                 className="btn btn-outline-dark fw-bold"
                 id="profileRentalHistory"
                 type="button"
-                style={{ marginRight: "10px" }}
+                style={{ marginLeft: "24px" }}
                 onClick={() => handleButtonClick("rentalHistory")}
               >
                 Rental History{" "}
