@@ -10,6 +10,9 @@ import ProductPanel from "./components/ProductPanel";
 import RentalCartPanel from "./components/RentalCartPanel";
 
 import "bootstrap/dist/css/bootstrap.css";
+import ChangePasswordForm from "./components/ChangePasswordForm";
+import UpdateUserInfoForm from "./components/UpdateUserInfoForm";
+import RentalHistoryForm from "./components/RentalHistoryForm";
 
 const Main: React.FC = () => {
   return (
@@ -24,6 +27,9 @@ const Main: React.FC = () => {
           <Route path="/product" element={<ProductPanel />} />
           <Route path="/cart" element={<RentalCartPanel />} />
           <Route path="/profile" element={<ProfilePanel />} />
+          <Route path="/changePassword" element={<ChangePasswordForm />} />
+          <Route path="/updateUserInfo" element={<UpdateUserInfoForm />} />
+          <Route path="/rentalHistory" element={<RentalHistoryForm />} />
         </Route>
       </Routes>
     </Router>
