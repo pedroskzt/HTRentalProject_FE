@@ -27,9 +27,9 @@ const Main: React.FC = () => {
           <Route path="/product" element={<ProductPanel />} />
           <Route path="/cart" element={<RentalCartPanel />} />
           <Route path="/profile" element={<ProfilePanel />} />
-          <Route path="/changePassword" element={<ChangePasswordForm />} />
-          <Route path="/updateUserInfo" element={<UpdateUserInfoForm />} />
-          <Route path="/rentalHistory" element={<RentalHistoryForm />} />
+          <Route path="/changepassword" element={<ChangePasswordForm />} />
+          <Route path="/updateuserinfo" element={<UpdateUserInfoForm />} />
+          <Route path="/rentalhistory" element={<RentalHistoryForm />} />
         </Route>
       </Routes>
     </Router>
