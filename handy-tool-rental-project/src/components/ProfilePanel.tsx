@@ -20,11 +20,11 @@ const ProfilePanel: React.FC = () => {
 
   const renderSelectedProfileForm = () => {
     switch (activeProfile) {
-      case "changePassword":
+      case "changepassword":
         return <ChangePasswordForm />;
-      case "updateUserInfo":
+      case "updateuserinfo":
         return <UpdateUserInfoForm />;
-      case "rentalHistory":
+      case "rentalhistory":
         return <RentalHistoryForm />;
       default:
         return (
@@ -54,12 +54,12 @@ const ProfilePanel: React.FC = () => {
             <nav>
               {" "}
               <Link
-                to="/changePassword"
+                to="/changepassword"
                 className="btn btn-outline-primary fw-bold"
                 id="profileChangePassword"
                 type="button"
                 style={{ marginLeft: "24px" }}
-                onClick={() => handleButtonClick("changePassword")}
+                onClick={() => handleButtonClick("changepassword")}
               >
                 Change Password{" "}
                 <i className="fa-solid fa-lock" style={{ marginLeft: "5px" }} />
@@ -67,12 +67,12 @@ const ProfilePanel: React.FC = () => {
               <hr />
               {/* Update User Info */}
               <Link
-                to="/updateUserInfo"
+                to="/updateuserinfo"
                 className="btn btn-outline-success fw-bold"
                 id="profileUpdateUserInfo"
                 type="button"
                 style={{ marginLeft: "24px" }}
-                onClick={() => handleButtonClick("updateUserInfo")}
+                onClick={() => handleButtonClick("updateuserinfo")}
               >
                 Update User Info{" "}
                 <i
@@ -83,12 +83,12 @@ const ProfilePanel: React.FC = () => {
               <hr />
               {/* Rental History */}
               <Link
-                to="/rentalHistory"
+                to="/rentalhistory"
                 className="btn btn-outline-dark fw-bold"
                 id="profileRentalHistory"
                 type="button"
                 style={{ marginLeft: "24px" }}
-                onClick={() => handleButtonClick("rentalHistory")}
+                onClick={() => handleButtonClick("rentalhistory")}
               >
                 Rental History{" "}
                 <i className="fa-solid fa-list" style={{ marginLeft: "5px" }} />
