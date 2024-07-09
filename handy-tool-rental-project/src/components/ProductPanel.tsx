@@ -5,6 +5,8 @@ import { useAuthorization } from "./AuthorizationContext";
 interface Product {
   id: number;
   amount_available: number;
+  brand: string;
+  model: string;
   name: string;
   description: string;
   category: {
@@ -300,10 +302,13 @@ const ProductPanel: React.FC = () => {
                         Category:{" "}
                         {product.category ? product.category.name : "Unknown"}
                       </h6>
+                      <h6 className="fw-bold">Brand: {product.brand}</h6>
+                      <h6 className="fw-bold">Model: {product.model}</h6>
+
                       <p className="card-text">
                         {product.description ? product.description : "Unknown"}
                       </p>
-                      <p className="card-text">
+                      <p>
                         <button
                           type="button"
                           className="btn btn-warning fw-bold"
@@ -316,13 +321,29 @@ const ProductPanel: React.FC = () => {
                           />
                           {product.price ? product.price : "0.0"}
                         </button>
-
+                        <button
+                          className="btn btn-info"
+                          name="qty"
+                          id="qty"
+                          type="button"
+                          disabled
+                        >
+                          Qty{"  "}
+                          <i
+                            className="fa-solid fa-equals"
+                            style={{ marginRight: "5px" }}
+                          ></i>
+                          {product.amount_available
+                            ? product.amount_available
+                            : "0"}
+                        </button>
                         <button
                           className="btn btn-success fw-bold"
                           name="addToCart"
                           id="addToCart"
                           type="submit"
                           disabled={!isAuthenticated}
+                          style={{ marginRight: "20px", marginLeft: "20px" }}
                         >
                           Add to Cart
                           <i

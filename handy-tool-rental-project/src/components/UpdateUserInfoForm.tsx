@@ -1,10 +1,98 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuthorization } from "./AuthorizationContext";
+import { useNavigate } from "react-router-dom";
 
 interface UpdateUserInfoFormProps {}
 
 const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState({
+    first_name: "",
+    last_name: "",
+    address: "",
+    phone_number: "",
+    email: "",
+  });
+  const { accessToken } = useAuthorization();
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api_auth/User/Get/Info",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch user information.");
+        }
+        const data = await response.json();
+        setUserInfo(data);
+      } catch (error) {
+        setError("Server error. Please try again.");
+        throw new Error("Server error. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUserInfo();
+  }, [accessToken]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserInfo((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log("new userinfo:", userInfo);
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api_auth/User/Update",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            userInfo,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      setIsLoading(false);
+
+      // Response available
+      if (response.status === 200 || response.status === 202) {
+        // Status 202: Accepted
+        navigate("/profile");
+      } else {
+        console.error("Update failed. Message=", response.statusText);
+        setError(response.statusText || "Update failed");
+      }
+    } catch (error) {
+      console.error("error:" + error);
+      setError("Server error. Please try again.");
+      setIsLoading(false);
+    } finally {
+      setIsLoading(true);
+    }
+  };
 
   return (
     <div className="container my-5">
@@ -93,7 +181,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 aria-label="First Name"
                 autoComplete="given-name"
                 required
-                value="First Name"
+                value={userInfo.first_name}
+                onChange={handleInputChange}
               />
             </div>
             <div className="col-md-4 page-section mx-2">
@@ -111,7 +200,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 aria-label="Last Name"
                 autoComplete="family-name"
                 required
-                value="Last Name"
+                value={userInfo.last_name}
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -132,7 +222,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 aria-label="Address"
                 autoComplete="street-address"
                 required
-                value="Address"
+                value={userInfo.address}
+                onChange={handleInputChange}
               />
             </div>
             <div className="col-md-4 page-section mx-2">
@@ -150,7 +241,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 placeholder="Phone Number"
                 aria-label="Phone Number"
                 pattern="\d*"
-                value="Phone number"
+                value={userInfo.phone_number}
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -165,6 +257,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 id="update"
                 name="update"
                 type="submit"
+                onClick={handleSubmit}
               >
                 {isLoading ? "Updating in..." : "Update"}
                 <i
