@@ -28,6 +28,7 @@ html, body, .App {
   line-height: 1.0; /* Line height for better readability */
   padding: 1px; /* Padding around the text */
   border-radius: 5px; /* Rounded corners */
+  margin-top: auto;
 }
 
 .page-section h2 {
@@ -52,6 +53,10 @@ html, body, .App {
   /*font-family: var(--georgia); /* Change to any desired font */
   font-size: 1.0rem; /* Heading font size */
   line-height: 1.0; /* Line height for better readability */
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .carousel-container {
