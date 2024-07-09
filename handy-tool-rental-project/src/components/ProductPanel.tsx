@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { defer, useNavigate } from "react-router-dom";
 import "../App.css";
 import { useAuthorization } from "./AuthorizationContext";
 
-interface Category {
-  id: number;
-  name: string;
-}
-
 interface Product {
   id: number;
+  amount_available: number;
   name: string;
   description: string;
   category: {
@@ -30,7 +25,7 @@ const ProductPanel: React.FC = () => {
   const [dataError, setDataError] = useState<string>(
     "Server error. Please try again."
   );
-  const navigate = useNavigate();
+
   const { accessToken } = useAuthorization();
 
   /** URLs for filter categories */
