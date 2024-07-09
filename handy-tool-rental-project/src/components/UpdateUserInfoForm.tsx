@@ -7,15 +7,13 @@ interface UpdateUserInfoFormProps {}
 const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
-    first_name: "",
-    last_name: "",
-    address: "",
-    phone_number: "",
-    email: "",
-  });
+  const [first_name, setFirstName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [last_name, setLastName] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [phone_number, setPhoneNumber] = useState<string>("");
   const { accessToken } = useAuthorization();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -34,7 +32,11 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
           throw new Error("Failed to fetch user information.");
         }
         const data = await response.json();
-        setUserInfo(data);
+        setEmail(data.email);
+        setFirstName(data.first_name);
+        setLastName(data.last_name);
+        setAddress(data.address);
+        setPhoneNumber(data.phone_number);
       } catch (error) {
         setError("Server error. Please try again.");
         throw new Error("Server error. Please try again.");
@@ -44,15 +46,6 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
     };
     fetchUserInfo();
   }, [accessToken]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    console.log("new userinfo:", userInfo);
-  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -69,7 +62,10 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            userInfo,
+            first_name,
+            last_name,
+            address,
+            phone_number,
           }),
         }
       );
@@ -181,8 +177,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 aria-label="First Name"
                 autoComplete="given-name"
                 required
-                value={userInfo.first_name}
-                onChange={handleInputChange}
+                value={first_name}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="col-md-4 page-section mx-2">
@@ -200,8 +196,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 aria-label="Last Name"
                 autoComplete="family-name"
                 required
-                value={userInfo.last_name}
-                onChange={handleInputChange}
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           </div>
@@ -222,8 +218,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 aria-label="Address"
                 autoComplete="street-address"
                 required
-                value={userInfo.address}
-                onChange={handleInputChange}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             <div className="col-md-4 page-section mx-2">
@@ -241,8 +237,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 placeholder="Phone Number"
                 aria-label="Phone Number"
                 pattern="\d*"
-                value={userInfo.phone_number}
-                onChange={handleInputChange}
+                value={phone_number}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
           </div>
@@ -260,10 +256,8 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                 onClick={handleSubmit}
               >
                 {isLoading ? "Updating in..." : "Update"}
-                <i
-                  className="fa-solid fa-address-card"
-                  style={{ marginLeft: "5px" }}
-                />
+                {"  "}
+                <i className="fa-solid fa-pen-to-square"></i>
               </button>
               {error && <div className="text-danger">{error}</div>}
             </div>
