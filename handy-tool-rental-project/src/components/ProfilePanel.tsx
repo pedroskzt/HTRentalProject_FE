@@ -49,12 +49,6 @@ const ProfilePanel: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setError(null);
-  };
-
   return (
     <div className="container my-5">
       <div className="row">

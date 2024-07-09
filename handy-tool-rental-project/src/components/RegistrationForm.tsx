@@ -82,17 +82,19 @@ const RegistrationForm: React.FC = () => {
         <h3 className="text-center">Registration</h3>
       </div>
       <div>
-        <hr />
+        <p>
+          <hr />
+        </p>
       </div>
 
-      <form className="row g-3 needs-validation" onSubmit={handleSubmit}>
+      <form className="row g-1 needs-validation" onSubmit={handleSubmit}>
         {/* First Row */}
         <div className="col-md-2">
           <label htmlFor="email" className="form-label">
             &nbsp;
           </label>
         </div>
-        <div className="col-md-4 page-section">
+        <div className="col-md-4 page-section mx-2">
           <label htmlFor="email" className="form-label">
             <span id="emailLabel" className="fw-bold">
               Email
@@ -130,11 +132,6 @@ const RegistrationForm: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="col-md-2">
-          <label htmlFor="password" className="form-label">
-            &nbsp;
-          </label>
-        </div>
 
         {/* Second Row */}
         <div className="col-md-2">
@@ -142,7 +139,7 @@ const RegistrationForm: React.FC = () => {
             &nbsp;
           </label>
         </div>
-        <div className="col-md-4 page-section">
+        <div className="col-md-4 page-section mx-2">
           <label htmlFor="first_name" className="form-label">
             <span id="firstNameLabel" className="fw-bold">
               First Name
@@ -180,11 +177,6 @@ const RegistrationForm: React.FC = () => {
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
-        <div className="col-md-2">
-          <label htmlFor="last_name" className="form-label">
-            &nbsp;
-          </label>
-        </div>
 
         {/* Third Row */}
         <div className="col-md-2">
@@ -192,7 +184,7 @@ const RegistrationForm: React.FC = () => {
             &nbsp;
           </label>
         </div>
-        <div className="col-md-4 page-section">
+        <div className="col-md-4 page-section mx-2">
           <label htmlFor="address" className="form-label">
             <span id="addressLabel" className="fw-bold">
               Address
@@ -234,19 +226,10 @@ const RegistrationForm: React.FC = () => {
             <div className="invalid-feedback">{error_number}</div>
           )}
         </div>
-        <div className="col-md-2">
-          <label htmlFor="phone_number" className="form-label">
-            &nbsp;
-          </label>
-        </div>
 
         {/* Fourth Row */}
-        <div className="col-md-2">
-          <label htmlFor="register" className="form-label">
-            &nbsp;
-          </label>
-        </div>
-        <div className="col-md-10 btn-main">
+
+        <div className="col-md-10 btn-main d-flex justify-content-center">
           <button
             className="btn btn-success fw-bold"
             id="register"
