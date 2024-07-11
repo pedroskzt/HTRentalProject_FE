@@ -19,11 +19,13 @@ const RegistrationForm: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = event.target.value;
-    if (/^\d*$/.test(value)) {
+    if (/^[\d+\-\s]*$/.test(value)) {
       setPhoneNumber(value);
       setErrorNumber(null);
     } else {
-      setErrorNumber("Please enter a valid contact number (digits only).");
+      setErrorNumber(
+        "Please enter a valid contact number (+,- and space allowed)."
+      );
     }
   };
 
@@ -32,8 +34,10 @@ const RegistrationForm: React.FC = () => {
     setIsLoading(true);
     setError(null);
 
-    if (!/^\d*$/.test(phone_number)) {
-      setErrorNumber("Please enter a valid contact number (digits only).");
+    if (!/^[\d+\-\s]*$/.test(phone_number)) {
+      setErrorNumber(
+        "Please enter a valid contact number (+,- and space allowed)."
+      );
       return;
     }
 
@@ -217,7 +221,7 @@ const RegistrationForm: React.FC = () => {
             autoComplete="tel"
             placeholder="Phone Number"
             aria-label="Phone Number"
-            pattern="\d*"
+            pattern="\d+\-\s*"
             value={phone_number}
             onChange={handlePhoneNumberChange}
             required
