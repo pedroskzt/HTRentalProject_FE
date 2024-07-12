@@ -1,10 +1,37 @@
-import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import HomeCarousel from "./components/HomeCarousel";
 import "./App.css";
 
 const App: React.FC = () => {
   const [activeButton, setActiveButton] = useState<string>("");
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // Set the active button based on the current location
+    const path = location.pathname;
+    switch (path) {
+      case "/":
+        setActiveButton("home");
+        break;
+      case "/login":
+        setActiveButton("login");
+        break;
+      case "/product":
+        setActiveButton("product");
+        break;
+      case "/cart":
+        setActiveButton("cart");
+        break;
+      case "/profile":
+        setActiveButton("profile");
+        break;
+      default:
+        setActiveButton("home");
+        break;
+    }
+  }, [location]);
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName);
