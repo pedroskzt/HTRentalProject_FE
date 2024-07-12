@@ -48,6 +48,7 @@ const LoginPanel: React.FC = () => {
         //console.log("Login successful: Data" + response.body);
         //console.log("token:", data.access);
         setAccessToken(data.access);
+        setCurrentView("profile");
         navigate("/profile");
       } else {
         console.error("Login failed. Message=", response.statusText);
