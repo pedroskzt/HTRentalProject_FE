@@ -302,8 +302,12 @@ const ProductPanel: React.FC = () => {
                         Category:{" "}
                         {product.category ? product.category.name : "Unknown"}
                       </h6>
-                      <h6 className="fw-bold">Brand: {product.brand}</h6>
-                      <h6 className="fw-bold">Model: {product.model}</h6>
+                      <h6 className="fw-bold">
+                        Brand: {product.brand ? product.brand : "Unknown"}
+                      </h6>
+                      <h6 className="fw-bold">
+                        Model: {product.model ? product.model : "Unknown"}
+                      </h6>
 
                       <p className="card-text">
                         {product.description ? product.description : "Unknown"}
@@ -358,9 +362,9 @@ const ProductPanel: React.FC = () => {
               </div>
             ))
           ) : (
-            <p className="text-danger">
+            <h4 className="text-danger">
               {error ? error : "No products available."}
-            </p>
+            </h4>
           )}
         </div>
       </div>

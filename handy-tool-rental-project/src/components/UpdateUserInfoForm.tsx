@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthorization } from "./AuthorizationContext";
 import { useNavigate } from "react-router-dom";
 
-interface UpdateUserInfoFormProps {}
-
-const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
+const UpdateUserInfoForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [first_name, setFirstName] = useState<string>("");
@@ -272,7 +270,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                   autoComplete="tel"
                   placeholder="Phone Number"
                   aria-label="Phone Number"
-                  pattern="\d+\-\s*"
+                  pattern="[\d+\-\s]*"
                   value={phone_number}
                   onChange={handlePhoneNumberChange}
                 />
@@ -295,6 +293,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({}) => {
                   {"   "}
                   <i className="fa-solid fa-pen-to-square"></i>
                 </button>
+                {"   "}
                 {error && <div className="text-danger">{error}</div>}
               </div>
             </div>

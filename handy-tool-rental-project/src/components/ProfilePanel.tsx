@@ -38,12 +38,16 @@ const ProfilePanel: React.FC = () => {
         return <RentalHistoryForm />;
       default:
         return (
-          <div className="text-danger">
-            <h4>
-              {isAuthenticated
-                ? "You need to select a Profile function"
-                : "You need to login to access the Profile functions"}
-            </h4>
+          <div className="col-md-8">
+            <h3 className="text-center">Profile</h3>
+            <hr />
+            <div className="text-danger">
+              <h4>
+                {isAuthenticated
+                  ? "You need to select a Profile function"
+                  : "You need to login to access the Profile functions"}
+              </h4>
+            </div>
           </div>
         );
     }
