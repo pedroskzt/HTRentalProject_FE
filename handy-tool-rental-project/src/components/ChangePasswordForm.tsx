@@ -35,6 +35,7 @@ const ChangePasswordForm: React.FC = () => {
       setIsLoading(false);
       return;
     }
+
     // Call API
     try {
       const response = await fetch(
@@ -45,18 +46,19 @@ const ChangePasswordForm: React.FC = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify({ newPassword }),
+          body: JSON.stringify({ password: newPassword }),
         }
       );
 
       const data = await response.json();
+      console.log("data:", data);
       setIsLoading(false);
 
       // Response available
       if (response.status === 200 || response.ok) {
         setPassword(newPassword);
         setErrorMessages([]);
-        console.log("Change password successful.");
+        console.log("Change password successful. New password:", newPassword);
         navigate("/login");
       } else {
         console.error("Change password failed. Message=", response.statusText);
