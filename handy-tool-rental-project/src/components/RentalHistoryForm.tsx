@@ -146,6 +146,7 @@ const RentalHistoryForm: React.FC = () => {
                     <table className="table table-striped table-hover table-bordered border border-primary-subtle">
                       <thead className="table-dark">
                         <tr>
+                          <th scope="col">Rent ID</th>
                           <th scope="col">Tool ID</th>
                           <th scope="col">Category</th>
                           <th scope="col">Tool Name</th>
@@ -160,8 +161,11 @@ const RentalHistoryForm: React.FC = () => {
                         {rentalHistory.map((rentHistory) => (
                           <tr key={rentHistory.id ? rentHistory.id : 0}>
                             <th scope="row">
-                              {rentHistory.tool.id ? rentHistory.tool.id : 0}
+                              {rentHistory.id ? rentHistory.id : 0}
                             </th>
+                            <td>
+                              {rentHistory.tool.id ? rentHistory.tool.id : 0}
+                            </td>
                             <td>
                               {rentHistory.tool &&
                               rentHistory.tool.model &&
