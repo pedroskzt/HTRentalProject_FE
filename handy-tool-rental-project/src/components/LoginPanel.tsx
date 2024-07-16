@@ -10,18 +10,17 @@ const LoginPanel: React.FC = () => {
   const [selectedButton, setSelectedButton] = useState<string>("login");
   const [isRegistering, setIsRegistering] = useState(false);
   const navigate = useNavigate();
-  const { setAccessToken } = useAuthorization();
+  /* This is for the Login validation*/
+  const [username, setUsernameInput] = useState("");
+  const [password, setPasswordInput] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setAccessToken, setUsername, setPassword } = useAuthorization();
 
   const toggleForm = () => {
     setIsRegistering(!isRegistering);
     navigate("/register");
   };
-
-  /* This is for the Login validation*/
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -45,9 +44,9 @@ const LoginPanel: React.FC = () => {
 
       // Response available
       if (response.status === 200) {
-        //console.log("Login successful: Data" + response.body);
-        //console.log("token:", data.access);
         setAccessToken(data.access);
+        setUsername(username);
+        setPassword(password);
         setCurrentView("profile");
         navigate("/profile");
       } else {
@@ -97,7 +96,7 @@ const LoginPanel: React.FC = () => {
                   autoComplete="off"
                   required
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsernameInput(e.target.value)}
                 />
               </div>
               <div className="col-md-4 page-section mx-2">
@@ -117,7 +116,7 @@ const LoginPanel: React.FC = () => {
                   aria-describedby="passwordHelpInline"
                   required
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPasswordInput(e.target.value)}
                 />
               </div>
             </div>
