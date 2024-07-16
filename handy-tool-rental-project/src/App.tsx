@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import HomeCarousel from "./components/HomeCarousel";
 import "./App.css";
+import { useAuthorization } from "./components/AuthorizationContext";
 
 const App: React.FC = () => {
   const [activeButton, setActiveButton] = useState<string>("");
-
+  const { setAccessToken } = useAuthorization();
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -27,6 +29,9 @@ const App: React.FC = () => {
       case "/profile":
         setActiveButton("profile");
         break;
+      case "/logout":
+        setActiveButton("logout");
+        break;
       default:
         setActiveButton("home");
         break;
@@ -35,6 +40,12 @@ const App: React.FC = () => {
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName);
+  };
+
+  const handleLogout = () => {
+    setActiveButton("logout");
+    setAccessToken(""); // Clears the token
+    navigate("/logout");
   };
 
   return (
@@ -114,6 +125,20 @@ const App: React.FC = () => {
             >
               Profile
               <i className="fa-solid fa-user" style={{ marginLeft: "5px" }} />
+            </Link>{" "}
+            <Link
+              to="/logout"
+              className={`btn btn-lg btn-header ${
+                activeButton === "logout" ? "btn-primary" : "btn-secondary"
+              }`}
+              style={{ marginRight: "10px" }}
+              onClick={handleLogout}
+            >
+              Logout
+              <i
+                className="fa-solid fa-right-from-bracket"
+                style={{ marginLeft: "5px" }}
+              ></i>
             </Link>
           </nav>
         </div>
