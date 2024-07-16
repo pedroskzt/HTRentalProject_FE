@@ -126,6 +126,7 @@ const App: React.FC = () => {
               Profile
               <i className="fa-solid fa-user" style={{ marginLeft: "5px" }} />
             </Link>{" "}
+            <div className="separator" />
             <Link
               to="/logout"
               className={`btn btn-lg btn-header ${

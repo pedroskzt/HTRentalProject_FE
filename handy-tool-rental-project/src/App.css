@@ -49,6 +49,15 @@ html, body, .App {
   border-radius: 3px; /* Rounded corners */
 }
 
+.separator {
+  display: inline-block;
+  border-left: 10px solid #030b65;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 20px;
+  vertical-align: middle; /* Ensures it aligns correctly with the buttons */
+}
+
 .btn-main {
   /*font-family: var(--georgia); /* Change to any desired font */
   font-size: 1.0rem; /* Heading font size */
@@ -125,6 +134,8 @@ html, body, .App {
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
+
 
 .footer {
   height: 50px; /* Adjust the height as needed */
