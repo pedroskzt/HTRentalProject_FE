@@ -122,6 +122,8 @@ html, body, .App {
 
 .text-product-title {
   color: var(--blue);
+  display: flex;
+  justify-content: space-between;
 }
 
 .text-italic {
