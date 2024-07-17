@@ -31,7 +31,7 @@ const ChangePasswordForm: React.FC = () => {
       return;
     }
     if (newPassword !== confirmNewPassword) {
-      setErrorMessages(["New password do not match."]);
+      setErrorMessages(["New password and confirm password do not match."]);
       setIsLoading(false);
       return;
     }
