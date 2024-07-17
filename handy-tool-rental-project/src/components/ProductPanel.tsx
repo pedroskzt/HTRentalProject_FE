@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import { useAuthorization } from "./AuthorizationContext";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -40,6 +41,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
   }>({});
   const [errorProduct, setErrorProduct] = useState<string | null>(null);
   const { accessToken } = useAuthorization();
+  const navigate = useNavigate();
 
   /** URLs for filter categories */
   const urlAll =
@@ -98,13 +100,6 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
       return;
     }
 
-    // if (amountAvailable <= 0) {
-    //   setErrorProduct("Product is out of stock.");
-    //   return;
-    // }
-
-    // setAmountAvailable(amountAvailable - 1);
-
     const currentAmount = availableQuantities[productId] || 0;
     if (currentAmount <= 0) {
       setErrorProduct("Product is out of stock.");
@@ -115,6 +110,47 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
       ...prevQuantities,
       [productId]: prevQuantities[productId] - 1,
     }));
+
+    console.log("ID:", productId);
+    console.log("rental time:", rentalDays[productId]);
+
+    try {
+      const response = await fetch(
+        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/RentalCart/Add",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            tools_model_id: product.id,
+            rental_time: rentalDays[productId],
+            quantity: 1,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      setIsLoading(false);
+
+      // Response available
+      if (response.status === 200 || response.ok) {
+        setError(null);
+        setErrorProduct(null);
+        console.log("Add to cart successful.");
+        navigate("/cart");
+      } else {
+        console.error("Add to cart failed. Message=", response.statusText);
+        setError("Error in adding to cart.");
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("error:" + error);
+      setError("An error occurred. Please try again.");
+      setIsLoading(false);
+      return;
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -350,8 +386,11 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
-                      <h4 className="text-product-title">
-                        {product.name ? product.name : "Unkonwn"}
+                      <h4 className="text-product-title d-flex justify-content-between">
+                        <span>{product.name ? product.name : "Unknown"} </span>
+                        <span>
+                          Tool ID: {product.id ? product.id : "Unknown"}{" "}
+                        </span>
                       </h4>
 
                       <h6 className="text-italic">
