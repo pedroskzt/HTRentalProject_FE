@@ -15,6 +15,21 @@ import RentalHistoryForm from "./components/RentalHistoryForm";
 import { AuthorizationProvider } from "./components/AuthorizationContext";
 
 const Main: React.FC = () => {
+  const product = {
+    id: 1,
+    amount_available: 1,
+    brand: "Brand Name",
+    model: "Model Name",
+    name: "Product Name",
+    description: "Product Description",
+    category: {
+      id: 1,
+      name: "Category Name",
+    },
+    price: 100,
+    image_name: "image.png",
+  }; // Example product data
+
   return (
     <Router>
       <Routes>
@@ -24,7 +39,7 @@ const Main: React.FC = () => {
           {/* Default route for App */}
           <Route path="/login" element={<LoginPanel />} />
           <Route path="/register" element={<RegistrationForm />} />
-          <Route path="/product" element={<ProductPanel />} />
+          <Route path="/product" element={<ProductPanel product={product} />} />
           <Route path="/cart" element={<RentalCartPanel />} />
           <Route path="/profile" element={<ProfilePanel />} />
           <Route path="/changepassword" element={<ChangePasswordForm />} />
