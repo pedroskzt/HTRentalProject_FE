@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import { useAuthorization } from "./AuthorizationContext";
 
@@ -17,7 +17,11 @@ interface Product {
   image_name: string;
 }
 
-const ProductPanel: React.FC = () => {
+interface ProductProps {
+  product: Product;
+}
+
+const ProductPanel: React.FC<ProductProps> = ({ product }) => {
   const [selectedOption, setSelectedOption] = useState<string>("all");
   const [products, setProducts] = useState<Product[]>([]);
   const [toolID, setToolID] = useState("");
@@ -27,7 +31,14 @@ const ProductPanel: React.FC = () => {
   const [dataError, setDataError] = useState<string>(
     "Server error. Please try again."
   );
-
+  const [rentalDays, setRentalDays] = useState<{ [key: number]: number }>({});
+  const [amountAvailable, setAmountAvailable] = useState(
+    product.amount_available | 0
+  );
+  const [availableQuantities, setAvailableQuantities] = useState<{
+    [key: number]: number;
+  }>({});
+  const [errorProduct, setErrorProduct] = useState<string | null>(null);
   const { accessToken } = useAuthorization();
 
   /** URLs for filter categories */
@@ -60,6 +71,50 @@ const ProductPanel: React.FC = () => {
     } else {
       setError("Please enter a valid contact number (digits only).");
     }
+  };
+
+  useEffect(() => {
+    const initialQuantities: { [key: number]: number } = {};
+    products.forEach((product) => {
+      initialQuantities[product.id] = product.amount_available;
+    });
+    setAvailableQuantities(initialQuantities);
+  }, [products]);
+
+  const handleRangeChange =
+    (productID: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = Number(e.target.value);
+      setRentalDays((prev) => ({
+        ...prev,
+        [productID]: value, // Update state for the specific product ID
+      }));
+    };
+
+  //const handleAddToCart = () => {
+  const handleAddToCart = (productId: number) => async () => {
+    const days = rentalDays[productId] || 0;
+    if (days === 0) {
+      setErrorProduct("Please select at least 1 rental day.");
+      return;
+    }
+
+    // if (amountAvailable <= 0) {
+    //   setErrorProduct("Product is out of stock.");
+    //   return;
+    // }
+
+    // setAmountAvailable(amountAvailable - 1);
+
+    const currentAmount = availableQuantities[productId] || 0;
+    if (currentAmount <= 0) {
+      setErrorProduct("Product is out of stock.");
+      return;
+    }
+
+    setAvailableQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: prevQuantities[productId] - 1,
+    }));
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -298,6 +353,7 @@ const ProductPanel: React.FC = () => {
                       <h4 className="text-product-title">
                         {product.name ? product.name : "Unkonwn"}
                       </h4>
+
                       <h6 className="text-italic">
                         Category:{" "}
                         {product.category ? product.category.name : "Unknown"}
@@ -313,17 +369,47 @@ const ProductPanel: React.FC = () => {
                         {product.description ? product.description : "Unknown"}
                       </p>
                       <p>
+                        <input
+                          type="range"
+                          className="form-range"
+                          min="0"
+                          max="7"
+                          step="1"
+                          value={rentalDays[product.id] || 0}
+                          id={`rentalDays-${product.id}`}
+                          name={`rentalDays-${product.id}`}
+                          onChange={handleRangeChange(product.id)}
+                        />
+                      </p>
+                      <p>
                         <button
                           type="button"
                           className="btn btn-warning fw-bold"
                           disabled
-                          style={{ marginRight: "20px" }}
+                          style={{ marginRight: "10px" }}
                         >
                           <i
                             className="fa-solid fa-dollar-sign"
-                            style={{ marginRight: "5px" }}
+                            style={{ marginRight: "2px" }}
                           />
                           {product.price ? product.price : "0.0"}
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          name="qty"
+                          id="qty"
+                          type="button"
+                          disabled
+                          style={{ marginRight: "10px" }}
+                        >
+                          Qty{" "}
+                          <i
+                            className="fa-solid fa-equals"
+                            style={{ marginRight: "2px" }}
+                          ></i>
+                          {availableQuantities[product.id]
+                            ? availableQuantities[product.id]
+                            : 0}
                         </button>
                         <button
                           className="btn btn-info"
@@ -331,30 +417,33 @@ const ProductPanel: React.FC = () => {
                           id="qty"
                           type="button"
                           disabled
+                          style={{ marginRight: "10px" }}
                         >
-                          Qty{"  "}
-                          <i
-                            className="fa-solid fa-equals"
-                            style={{ marginRight: "5px" }}
-                          ></i>
-                          {product.amount_available
-                            ? product.amount_available
-                            : "0"}
+                          <span>{rentalDays[product.id] || 0} days</span>
                         </button>
+
                         <button
                           className="btn btn-success fw-bold"
                           name="addToCart"
                           id="addToCart"
                           type="submit"
-                          disabled={!isAuthenticated}
-                          style={{ marginRight: "20px", marginLeft: "20px" }}
+                          disabled={
+                            !isAuthenticated ||
+                            availableQuantities[product.id] <= 0
+                          }
+                          style={{ marginRight: "5px" }}
+                          onClick={handleAddToCart(product.id)}
                         >
                           Add to Cart
                           <i
                             className="fa-solid fa-cart-shopping"
-                            style={{ marginLeft: "5px" }}
+                            style={{ marginLeft: "2px" }}
                           />
                         </button>
+
+                        {errorProduct && (
+                          <div className="text-danger">{errorProduct}</div>
+                        )}
                       </p>
                     </div>
                   </div>
