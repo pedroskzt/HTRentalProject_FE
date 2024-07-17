@@ -51,14 +51,13 @@ const ChangePasswordForm: React.FC = () => {
       );
 
       const data = await response.json();
-      console.log("data:", data);
       setIsLoading(false);
 
       // Response available
       if (response.status === 200 || response.ok) {
         setPassword(newPassword);
         setErrorMessages([]);
-        console.log("Change password successful. New password:", newPassword);
+        console.log("Change password successful.");
         navigate("/login");
       } else {
         console.error("Change password failed. Message=", response.statusText);
