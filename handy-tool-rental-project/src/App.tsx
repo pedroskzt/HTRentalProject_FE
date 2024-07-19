@@ -4,6 +4,14 @@ import HomeCarousel from "./components/HomeCarousel";
 import "./App.css";
 import { useAuthorization } from "./components/AuthorizationContext";
 
+// insert function URL for openAI here:
+const functionUrl = "https://xxxxxxxxxxxxxxxx.lambda-url.eu-west-3.on.aws/";
+
+type Message = {
+  text: string;
+  sender: "ai" | "user";
+};
+
 const App: React.FC = () => {
   const [activeButton, setActiveButton] = useState<string>("");
   const { setAccessToken } = useAuthorization();
@@ -46,6 +54,33 @@ const App: React.FC = () => {
     setActiveButton("logout");
     setAccessToken(""); // Clears the token
     navigate("/logout");
+  };
+  // creating chat bot
+  const [newInputValue, setNewInputValue] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const newMessage: React.FormEventHandler = async (e) => {
+    e.preventDefault();
+    setNewInputValue("");
+    const newMessages: Message[] = [
+      ...messages,
+      {
+        text: newInputValue,
+        sender: "user",
+      },
+    ];
+    setMessages(newMessages);
+    const response = await fetch(functionUrl, {
+      method: "POST",
+      body: JSON.stringify({ messages: newMessages }),
+    });
+    setMessages([
+      ...newMessages,
+      {
+        sender: "ai",
+        text: await response.text(),
+      },
+    ]);
   };
 
   return (
@@ -156,6 +191,24 @@ const App: React.FC = () => {
         <div className="panel panel-bottom">
           <Outlet />
         </div>
+        {/*chat bot*/}
+        <h1>Need Help?</h1>
+        <div>
+          {messages.map((message, index) => (
+            <p key={index} className={"message " + message.sender}>
+              {message.text}
+            </p>
+          ))}
+        </div>
+        <form className="input-form" onSubmit={newMessage}>
+          <input
+            type="text"
+            placeholder="Message"
+            value={newInputValue}
+            onChange={(e) => setNewInputValue(e.currentTarget.value)}
+          />
+          <input type="submit" value="Send" />
+        </form>
       </main>
 
       {/* Footer */}
