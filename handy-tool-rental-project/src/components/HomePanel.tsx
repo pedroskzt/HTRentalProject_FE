@@ -116,7 +116,7 @@ const HomePanel: React.FC = () => {
           <p>
             Have questions or need assistance? Feel free to reach out to us! You
             can contact us via email at info@handyrentaltools.com, call us at
-            (123) 456-7890, or visit our store at 123 Main Street, Your City. We
+            (123) 456-7890, or visit our store at 123 Main Street, Vancouver. We
             look forward to serving you!
           </p>
         </div>
