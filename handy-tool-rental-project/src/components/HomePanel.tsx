@@ -46,8 +46,38 @@ const HomePanel: React.FC = () => {
         <div className="text-section">
           <h2>About Us</h2>
           <p>
-            Welcome to Handy Rental Tools, your trusted source for all your tool
+            Welcome to Handy Tool Rental, your trusted source for all your tool
             rental needs!
+          </p>
+          <h2>Who We Are</h2>
+          <p>
+            At Handy Tool Rental, we specialize in providing a wide range of
+            high-quality tools and equipment for all your project needs. Whether
+            you're a professional contractor, a DIY enthusiast, or need
+            specialized tools for a one-time project, we've got you covered.
+          </p>
+          <h2>Our Mission</h2>
+          <p>
+            Our mission is to make tool rental easy, accessible, and affordable
+            for everyone. We believe that the right tools can make any job
+            easier and more efficient, and we're committed to providing our
+            customers with the best rental experience possible.
+          </p>
+
+          <h2>Why Choose Us?</h2>
+          <p>
+            Convenience: Easily browse and reserve tools online, and choose
+            between delivery or in-store pickup.
+          </p>
+          <p>
+            Customer Satisfaction: We're dedicated to providing excellent
+            customer service and support, ensuring you have everything you need
+            for a successful project.
+          </p>
+          <p>
+            Community Focus: As a locally owned and operated business, we're
+            committed to supporting our community and helping local projects
+            thrive.
           </p>
         </div>
       </div>
@@ -58,6 +88,36 @@ const HomePanel: React.FC = () => {
           <p>
             Browse through our extensive collection of tools and find the
             perfect one for your needs.
+          </p>
+          <h2>What We Offer</h2>
+          <ul>
+            <li>
+              <strong>Extensive Inventory:</strong> From power tools and hand
+              tools to heavy machinery, we offer a comprehensive selection of
+              tools for every job.
+            </li>
+            <li>
+              <strong>Quality Assurance:</strong> All our tools are maintained
+              to the highest standards to ensure they perform reliably and
+              safely.
+            </li>
+            <li>
+              <strong>Affordable Rates:</strong> We offer competitive rental
+              rates and flexible rental periods to suit your budget and
+              schedule.
+            </li>
+            <li>
+              <strong>Expert Support:</strong> Our knowledgeable staff is always
+              ready to assist you in selecting the right tools and providing
+              tips on how to use them effectively.
+            </li>
+          </ul>
+          <h2>Contact Us</h2>
+          <p>
+            Have questions or need assistance? Feel free to reach out to us! You
+            can contact us via email at info@handyrentaltools.com, call us at
+            (123) 456-7890, or visit our store at 123 Main Street, Your City. We
+            look forward to serving you!
           </p>
         </div>
         <h1>Need Help?</h1>
