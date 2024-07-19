@@ -13,6 +13,7 @@ import ChangePasswordForm from "./components/ChangePasswordForm";
 import UpdateUserInfoForm from "./components/UpdateUserInfoForm";
 import RentalHistoryForm from "./components/RentalHistoryForm";
 import { AuthorizationProvider } from "./components/AuthorizationContext";
+import CheckoutReviewForm from "./components/CheckoutReviewForm";
 
 const Main: React.FC = () => {
   const product = {
@@ -41,6 +42,7 @@ const Main: React.FC = () => {
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/product" element={<ProductPanel product={product} />} />
           <Route path="/cart" element={<RentalCartPanel />} />
+          <Route path="/checkoutreview" element={<CheckoutReviewForm />} />
           <Route path="/profile" element={<ProfilePanel />} />
           <Route path="/changepassword" element={<ChangePasswordForm />} />
           <Route path="/updateuserinfo" element={<UpdateUserInfoForm />} />
