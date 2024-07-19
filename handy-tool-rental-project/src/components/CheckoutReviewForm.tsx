@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthorization } from "./AuthorizationContext";
 import "../App.css";
-import { useNavigate } from "react-router-dom";
 
 interface Tool {
   quantity: number;
@@ -17,13 +16,12 @@ interface RentedProduct {
   user: number;
 }
 
-const RentalCartPanel: React.FC = () => {
+const CheckoutReviewForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [rentedProducts, setRentedProducts] = useState<RentedProduct[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { accessToken } = useAuthorization();
-  const navigate = useNavigate();
 
   // Initial load check for authorization
   useEffect(() => {
@@ -73,27 +71,16 @@ const RentalCartPanel: React.FC = () => {
     fetchRentedProducts();
   }, [accessToken]);
 
-  const handleCheckoutReview = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-    // Redirect to proper page
-    navigate("/checkoutreview");
-  };
-
   return (
     <div>
       <div className="col-md-12 page-section">
-        <h3 className="text-center">Rental Cart</h3>
+        <h3 className="text-center">Checkout Review</h3>
       </div>
       <div>
         <hr />
       </div>
       {rentedProducts.length > 0 ? (
-        <form
-          className="row g-3 needs-validation"
-          onSubmit={handleCheckoutReview}
-        >
+        <form className="row g-3 needs-validation">
           <div className="table-container">
             {/* Add padding using Bootstrap classes */}
             <table className="table table-striped table-hover table-bordered border border-primary-subtle">
@@ -127,12 +114,14 @@ const RentalCartPanel: React.FC = () => {
               </tbody>
             </table>
           </div>
-          <div className="col-md-8">
-            <label htmlFor="checkoutreview" className="form-label">
-              &nbsp;
-            </label>
+          <div className="col-md-8 d-flex justify-content-end align-items-center">
+            <div className="text-center text-danger fw-bold">
+              NOTE: This is the last page that you can make changes for the
+              rented products.{" "}
+              <i className="fa-solid fa-triangle-exclamation"></i>
+            </div>
           </div>
-          <div className="col-md-4 btn-main d-flex justify-content-center">
+          <div className="col-md-4 btn-main d-flex justify-content-left">
             <button
               className="btn btn-primary fw-bold"
               id="checkoutreview"
@@ -160,4 +149,4 @@ const RentalCartPanel: React.FC = () => {
   );
 };
 
-export default RentalCartPanel;
+export default CheckoutReviewForm;
