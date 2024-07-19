@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useAuthorization } from "./AuthorizationContext";
 import "../App.css";
 
-interface Product {
+interface Tool {
+  quantity: number;
+  rental_time: number;
+  tools_model_id: number;
+}
+
+interface RentedProduct {
   id: number;
-  amount_available: number;
-  name: string;
-  description: string;
-  category: {
-    id: number;
-    name: string;
-  };
-  price: number;
-  image_name: string;
+  tools: Tool[];
+  date_created: string;
+  date_updated: string;
+  user: number;
 }
 
 const RentalCartPanel: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [rentedProducts, setRentedProducts] = useState<RentedProduct[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { accessToken } = useAuthorization();
 
@@ -30,38 +31,45 @@ const RentalCartPanel: React.FC = () => {
     }
   }, [accessToken]);
 
-  // TODO: Temporary data
+  // Initial load check for authorization
   useEffect(() => {
-    const tempProducts: Product[] = [
-      {
-        id: 1,
-        amount_available: 3,
-        name: "Rotary",
-        description:
-          "BOSCH GBH18V-21N 18V Brushless SDS-Plus 3/4 in. Rotary Hammer (Bare Tool)",
-        category: {
-          id: 1,
-          name: "Drills & Hammers",
-        },
-        price: 100.0,
-        image_name: "rotary",
-      },
-      {
-        id: 2,
-        amount_available: 2,
-        name: "Cordless",
-        description:
-          "DEWALT 20V MAX XR Hammer Drill, Brushless, 3-Speed, Tool Only (DCD996B)",
-        category: {
-          id: 2,
-          name: "Cordless Tools",
-        },
-        price: 120.0,
-        image_name: "cordless",
-      },
-    ];
-    setProducts(tempProducts);
-  }, []);
+    const fetchRentedProducts = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/RentalCart/Get",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          console.error(
+            "Failed to retrieve products that are added to cart by the user."
+          );
+          throw new Error("Failed to fetch add to cart products.");
+        }
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setRentedProducts(data);
+        } else {
+          setRentedProducts([data]);
+        }
+
+        console.log("Rented:", rentedProducts.length);
+      } catch (error) {
+        setError("Server error. Please try again.");
+        throw new Error("Server error. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchRentedProducts();
+  }, [accessToken]);
 
   return (
     <div>
@@ -71,7 +79,7 @@ const RentalCartPanel: React.FC = () => {
       <div>
         <hr />
       </div>
-      {products.length > 0 ? (
+      {rentedProducts.length > 0 ? (
         <form className="row g-3 needs-validation">
           <div className="table-container">
             {/* Add padding using Bootstrap classes */}
@@ -79,23 +87,29 @@ const RentalCartPanel: React.FC = () => {
               <thead className="table-dark">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Price</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Date Updated</th>
                   <th scope="col">Quantity</th>
-                  <th scope="col">Total</th>
+                  <th scope="col">Rental Time</th>
+                  <th scope="col">Tool ID</th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
-                  <tr key={product.id}>
-                    <th scope="row">{product.id}</th>
-                    <td>{product.image_name}</td>
-                    <td>{product.name}</td>
-                    <td>{product.price}</td>
-                    <td>{product.amount_available}</td>
-                    <td>{product.price * product.amount_available}</td>
-                  </tr>
+                {rentedProducts.map((rentedProduct, index) => (
+                  <React.Fragment key={rentedProduct.id}>
+                    {rentedProduct.tools.map((tool, toolIndex) => (
+                      <tr key={`${rentedProduct.id}-${toolIndex}`}>
+                        <th scope="row">{rentedProduct.id}</th>
+                        <td>{rentedProduct.user}</td>
+                        <td>{rentedProduct.date_created}</td>
+                        <td>{rentedProduct.date_updated}</td>
+                        <td>{tool ? tool.quantity : 0}</td>
+                        <td>{tool ? tool.rental_time : 0}</td>
+                        <td>{tool ? tool.tools_model_id : 0}</td>
+                      </tr>
+                    ))}
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>
@@ -105,7 +119,7 @@ const RentalCartPanel: React.FC = () => {
         <div className="text-danger text-center">
           <h4>
             {isAuthenticated
-              ? "No products available."
+              ? "No rented products available."
               : "You need to login to access the Rental Cart function."}
           </h4>
         </div>
