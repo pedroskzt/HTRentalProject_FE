@@ -160,7 +160,7 @@ const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="bg-dark text-white text-left p-3 mt-auto footer">
-        HT Tool Rental. All Rights Reserved (2024).
+        Handy Tool (HT) Tool Rental. All Rights Reserved (2024).
       </footer>
     </div>
   );
