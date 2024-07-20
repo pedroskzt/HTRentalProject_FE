@@ -2,24 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useAuthorization } from "./AuthorizationContext";
 import "../App.css";
 
-interface Tool {
+interface ToolsModels {
   quantity: number;
-  rental_time: number;
-  tools_model_id: number;
+  time_rented: number;
+  tool__model_id: number;
 }
 
-interface RentedProduct {
+interface ReviewRentedProduct {
   id: number;
-  tools: Tool[];
+  tools_models: ToolsModels[];
   date_created: string;
   date_updated: string;
   user: number;
+  status: string;
+  sub_total: string;
 }
 
 const CheckoutReviewForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [rentedProducts, setRentedProducts] = useState<RentedProduct[]>([]);
+  const [rentedProducts, setRentedProducts] = useState<ReviewRentedProduct[]>(
+    []
+  );
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { accessToken } = useAuthorization();
 
@@ -37,9 +41,9 @@ const CheckoutReviewForm: React.FC = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/RentalCart/Get",
+          "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/Checkout/Review",
           {
-            method: "GET",
+            method: "POST",
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
@@ -86,27 +90,53 @@ const CheckoutReviewForm: React.FC = () => {
             <table className="table table-striped table-hover table-bordered border border-primary-subtle">
               <thead className="table-dark">
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">User</th>
+                  <th scope="col">Select</th>
                   <th scope="col">Date Created</th>
                   <th scope="col">Date Updated</th>
+                  <th scope="col">Status</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Rental Time</th>
-                  <th scope="col">Tool ID</th>
+                  <th scope="col">Tool Model ID</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {rentedProducts.map((rentedProduct, index) => (
                   <React.Fragment key={rentedProduct.id}>
-                    {rentedProduct.tools.map((tool, toolIndex) => (
+                    {rentedProduct.tools_models.map((toolsModel, toolIndex) => (
                       <tr key={`${rentedProduct.id}-${toolIndex}`}>
-                        <th scope="row">{rentedProduct.id}</th>
-                        <td>{rentedProduct.user}</td>
+                        <th scope="row">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="rentedProductCheck"
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="rentedProductCheck"
+                          ></label>
+                        </th>
                         <td>{rentedProduct.date_created}</td>
                         <td>{rentedProduct.date_updated}</td>
-                        <td>{tool ? tool.quantity : 0}</td>
-                        <td>{tool ? tool.rental_time : 0}</td>
-                        <td>{tool ? tool.tools_model_id : 0}</td>
+                        <td>{rentedProduct.status}</td>
+                        <td>{toolsModel ? toolsModel.quantity : 0}</td>
+                        <td>{toolsModel ? toolsModel.time_rented : 0}</td>
+                        <td>{toolsModel ? toolsModel.tool__model_id : 0}</td>
+                        <td>
+                          <button
+                            className="btn btn-primary fw-bold"
+                            id="editCheckoutReview"
+                            name="editCheckoutReview"
+                            type="submit"
+                          >
+                            {isLoading
+                              ? "Updating Rented Product ..."
+                              : "Update"}
+                            {"   "}
+                            <i className="fa-solid fa-pen-nib"></i>
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </React.Fragment>
@@ -128,9 +158,9 @@ const CheckoutReviewForm: React.FC = () => {
               name="checkoutreview"
               type="submit"
             >
-              {isLoading ? "Checkout Review processing ..." : "Checkout Review"}
+              {isLoading ? "Making payment ..." : "Make Payment"}
               {"   "}
-              <i className="fa-solid fa-check-double"></i>
+              <i className="fa-solid fa-money-check-dollar"></i>
             </button>
             {"   "}
             {error && <div className="text-danger">{error}</div>}
