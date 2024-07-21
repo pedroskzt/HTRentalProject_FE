@@ -4,14 +4,14 @@ import { useAuthorization } from "./AuthorizationContext";
 import { useNavigate } from "react-router-dom";
 
 interface Product {
-  id: number;
+  tools_model_id: number;
   amount_available: number;
   brand: string;
   model: string;
   name: string;
   description: string;
   category: {
-    id: number;
+    category_id: number;
     name: string;
   };
   price: number;
@@ -25,7 +25,7 @@ interface ProductProps {
 const ProductPanel: React.FC<ProductProps> = ({ product }) => {
   const [selectedOption, setSelectedOption] = useState<string>("all");
   const [products, setProducts] = useState<Product[]>([]);
-  const [toolID, setToolID] = useState("");
+  const [toolModelID, setToolModelID] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,7 +60,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
     setSelectedOption(selectedOptionValue);
     setError(null);
     if (selectedOptionValue != "byID") {
-      setToolID(""); // Clear the tool id in cases where the option is not by ID
+      setToolModelID(""); // Clear the tool id in cases where the option is not by ID
     }
   };
 
@@ -68,7 +68,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
     const value = event.target.value;
     setSelectedOption("byID");
     if (/^\d*$/.test(value)) {
-      setToolID(value);
+      setToolModelID(value);
       setError(null);
     } else {
       setError("Please enter a valid contact number (digits only).");
@@ -78,7 +78,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
   useEffect(() => {
     const initialQuantities: { [key: number]: number } = {};
     products.forEach((product) => {
-      initialQuantities[product.id] = product.amount_available;
+      initialQuantities[product.tools_model_id] = product.amount_available;
     });
     setAvailableQuantities(initialQuantities);
   }, [products]);
@@ -92,7 +92,6 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
       }));
     };
 
-  //const handleAddToCart = () => {
   const handleAddToCart = (productId: number) => async () => {
     const days = rentalDays[productId] || 0;
     if (days === 0) {
@@ -124,7 +123,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            tools_model_id: product.id,
+            tools_model_id: productId,
             rental_time: rentalDays[productId],
             quantity: 1,
           }),
@@ -182,7 +181,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
           activeURL = urlFloorCareAndSanding;
           break;
         case "byID":
-          activeURL = `${urlByID}${toolID}`;
+          activeURL = `${urlByID}${toolModelID}`;
           break;
         default:
           activeURL = urlAll;
@@ -328,10 +327,10 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
             <div className="form-check">
               <input
                 type="text"
-                id="toolID"
-                name="toolID"
-                value={toolID}
-                placeholder="Enter Tool ID"
+                id="toolModelID"
+                name="toolModelID"
+                value={toolModelID}
+                placeholder="Enter Tool Model ID"
                 aria-label="First name"
                 className={`form-control ${error ? "is-invalid" : ""}`}
                 pattern="\d*"
@@ -366,7 +365,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
           {products.length > 0 ? (
             products.map((product) => (
               <div
-                key={product.id ? product.id : 0}
+                key={product.tools_model_id ? product.tools_model_id : 0}
                 className="card mb-3"
                 style={{
                   maxWidth: "740px",
@@ -389,7 +388,10 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
                       <h4 className="text-product-title d-flex justify-content-between">
                         <span>{product.name ? product.name : "Unknown"} </span>
                         <span>
-                          Tool ID: {product.id ? product.id : "Unknown"}{" "}
+                          Tool Model ID:{" "}
+                          {product.tools_model_id
+                            ? product.tools_model_id
+                            : "Unknown"}{" "}
                         </span>
                       </h4>
 
@@ -414,10 +416,10 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
                           min="0"
                           max="7"
                           step="1"
-                          value={rentalDays[product.id] || 0}
-                          id={`rentalDays-${product.id}`}
-                          name={`rentalDays-${product.id}`}
-                          onChange={handleRangeChange(product.id)}
+                          value={rentalDays[product.tools_model_id] || 0}
+                          id={`rentalDays-${product.tools_model_id}`}
+                          name={`rentalDays-${product.tools_model_id}`}
+                          onChange={handleRangeChange(product.tools_model_id)}
                         />
                       </p>
                       <p>
@@ -446,8 +448,8 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
                             className="fa-solid fa-equals"
                             style={{ marginRight: "2px" }}
                           ></i>
-                          {availableQuantities[product.id]
-                            ? availableQuantities[product.id]
+                          {availableQuantities[product.tools_model_id]
+                            ? availableQuantities[product.tools_model_id]
                             : 0}
                         </button>
                         <button
@@ -458,7 +460,9 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
                           disabled
                           style={{ marginRight: "10px" }}
                         >
-                          <span>{rentalDays[product.id] || 0} days</span>
+                          <span>
+                            {rentalDays[product.tools_model_id] || 0} days
+                          </span>
                         </button>
 
                         <button
@@ -468,10 +472,10 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
                           type="submit"
                           disabled={
                             !isAuthenticated ||
-                            availableQuantities[product.id] <= 0
+                            availableQuantities[product.tools_model_id] <= 0
                           }
                           style={{ marginRight: "5px" }}
-                          onClick={handleAddToCart(product.id)}
+                          onClick={handleAddToCart(product.tools_model_id)}
                         >
                           Add to Cart
                           <i
@@ -491,7 +495,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
             ))
           ) : (
             <h4 className="text-danger">
-              {error ? error : "No products available."}
+              {error ? error : "Select a filter option."}
             </h4>
           )}
         </div>

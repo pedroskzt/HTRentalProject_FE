@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useAuthorization } from "./AuthorizationContext";
 
 interface RentalHistoryFormProps {
-  id: number;
+  tools_history_id: number;
+  rental_order: number;
+  user: number;
   rent_start_date: string;
   rent_end_date: string;
   date_created: string;
   date_modified: string;
   tool: {
-    id: number;
+    tool_id: number;
     available: boolean;
     model: {
-      id: number;
+      tools_model_id: number;
       brand: string;
       model: string;
       name: string;
@@ -19,7 +21,7 @@ interface RentalHistoryFormProps {
       description: string;
       image_name: string;
       category: {
-        id: number;
+        category_id: number;
         name: string;
       };
     };
@@ -34,6 +36,7 @@ const RentalHistoryForm: React.FC = () => {
   );
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { accessToken } = useAuthorization();
+  const [apiError, setApiError] = useState<string | null>(null);
 
   // Initial load check for authorization
   useEffect(() => {
@@ -49,16 +52,24 @@ const RentalHistoryForm: React.FC = () => {
             },
           }
         );
-
-        if (!response.ok) {
-          console.error("Failed to retrieve rental history of the user.");
-          throw new Error("Failed to fetch rental history.");
-        }
         const data = await response.json();
-        setRentalHistory(data);
+        if (!response.ok) {
+          if (data.user_error) {
+            setApiError(data.user_error);
+            console.error(data.user_error);
+            throw new Error(data.user_error);
+          } else {
+            console.error("Failed to retrieve rental history of the user.");
+            throw new Error("Failed to fetch rental history.");
+          }
+          return;
+        } else {
+          setRentalHistory(data);
+        }
       } catch (error) {
         setError("Server error. Please try again.");
         throw new Error("Server error. Please try again.");
+        return;
       } finally {
         setIsLoading(false);
       }
@@ -146,25 +157,29 @@ const RentalHistoryForm: React.FC = () => {
                     <table className="table table-striped table-hover table-bordered border border-primary-subtle">
                       <thead className="table-dark">
                         <tr>
-                          <th scope="col">Rent ID</th>
-                          <th scope="col">Tool ID</th>
+                          <th scope="col">History ID</th>
                           <th scope="col">Category</th>
                           <th scope="col">Tool Name</th>
                           <th scope="col">Tool Brand</th>
                           <th scope="col">Tool Model</th>
-                          <th scope="col">Price</th>
+                          <th scope="col">Price (day) </th>
                           <th scope="col">Rent Start Date</th>
                           <th scope="col">Rent End Date</th>
                         </tr>
                       </thead>
                       <tbody>
                         {rentalHistory.map((rentHistory) => (
-                          <tr key={rentHistory.id ? rentHistory.id : 0}>
-                            <th scope="row">
-                              {rentHistory.id ? rentHistory.id : 0}
-                            </th>
+                          <tr
+                            key={
+                              rentHistory.tools_history_id
+                                ? rentHistory.tools_history_id
+                                : 0
+                            }
+                          >
                             <td>
-                              {rentHistory.tool.id ? rentHistory.tool.id : 0}
+                              {rentHistory.tools_history_id
+                                ? rentHistory.tools_history_id
+                                : 0}
                             </td>
                             <td>
                               {rentHistory.tool &&
@@ -195,12 +210,16 @@ const RentalHistoryForm: React.FC = () => {
                             </td>
                             <td>
                               {rentHistory.rent_start_date
-                                ? rentHistory.rent_start_date
+                                ? new Date(rentHistory.rent_start_date)
+                                    .toISOString()
+                                    .split("T")[0]
                                 : "Unknown"}
                             </td>
                             <td>
                               {rentHistory.rent_end_date
-                                ? rentHistory.rent_end_date
+                                ? new Date(rentHistory.rent_end_date)
+                                    .toISOString()
+                                    .split("T")[0]
                                 : "Unknown"}
                             </td>
                           </tr>
@@ -211,7 +230,13 @@ const RentalHistoryForm: React.FC = () => {
                 </form>
               ) : (
                 <div className="text-danger text-center">
-                  <h4>No rental history available.</h4>
+                  <h4>
+                    {isAuthenticated
+                      ? apiError
+                        ? apiError
+                        : "No rental history available."
+                      : "You need to login to access the Rental History function."}
+                  </h4>
                 </div>
               )}
             </div>
