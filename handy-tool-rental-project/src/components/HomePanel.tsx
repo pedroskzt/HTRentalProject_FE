@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import "../HomePanel.css";
+import { useAuthorization } from "./AuthorizationContext";
 
 // insert function URL for openAI here:
-const functionUrl = "https://xxxxxxxxxxxxxxxx.lambda-url.eu-west-3.on.aws/";
+const functionUrl =
+  "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/ChatBot/Input";
+//"https://xxxxxxxxxxxxxxxx.lambda-url.eu-west-3.on.aws/";
 
 type Message = {
   text: string;
@@ -14,6 +17,7 @@ const HomePanel: React.FC = () => {
   // creating chat bot
   const [newInputValue, setNewInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const { accessToken } = useAuthorization();
 
   const newMessage: React.FormEventHandler = async (e) => {
     e.preventDefault();
@@ -25,18 +29,48 @@ const HomePanel: React.FC = () => {
         sender: "user",
       },
     ];
+
+    console.log("messages:", messages);
+    console.log("newInputValue:", newInputValue);
     setMessages(newMessages);
-    const response = await fetch(functionUrl, {
-      method: "POST",
-      body: JSON.stringify({ messages: newMessages }),
-    });
-    setMessages([
-      ...newMessages,
-      {
-        sender: "ai",
-        text: await response.text(),
-      },
-    ]);
+    try {
+      const response = await fetch(functionUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          input: newInputValue,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.user_error) {
+          console.error(data.user_error);
+        }
+        throw new Error("Network response was not ok");
+      }
+
+      setMessages([
+        ...newMessages,
+        {
+          sender: "ai",
+          text: data.response_to_user, // response from api
+        },
+      ]);
+    } catch (error) {
+      console.error("Error encountered:", error);
+      setMessages([
+        ...newMessages,
+        {
+          sender: "ai",
+          text: "Sorry, there was an error processing your request.",
+        },
+      ]);
+    }
+    console.log("text:", newMessages);
   };
 
   return (
