@@ -6,7 +6,7 @@ import { useAuthorization } from "./components/AuthorizationContext";
 
 const App: React.FC = () => {
   const [activeButton, setActiveButton] = useState<string>("");
-  const { setAccessToken } = useAuthorization();
+  const { accessToken, setAccessToken } = useAuthorization();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -44,7 +44,8 @@ const App: React.FC = () => {
 
   const handleLogout = () => {
     setActiveButton("logout");
-    setAccessToken(""); // Clears the token
+    setAccessToken(null); // Clears the token
+    localStorage.removeItem("accessToken");
     navigate("/logout");
   };
 
@@ -127,20 +128,22 @@ const App: React.FC = () => {
               <i className="fa-solid fa-user" style={{ marginLeft: "5px" }} />
             </Link>{" "}
             <div className="separator" />
-            <Link
-              to="/logout"
-              className={`btn btn-lg btn-header ${
-                activeButton === "logout" ? "btn-primary" : "btn-secondary"
-              }`}
-              style={{ marginRight: "10px" }}
-              onClick={handleLogout}
-            >
-              Logout
-              <i
-                className="fa-solid fa-right-from-bracket"
-                style={{ marginLeft: "5px" }}
-              ></i>
-            </Link>
+            {accessToken && (
+              <Link
+                to="/logout"
+                className={`btn btn-lg btn-header ${
+                  activeButton === "logout" ? "btn-primary" : "btn-secondary"
+                }`}
+                style={{ marginRight: "10px" }}
+                onClick={handleLogout}
+              >
+                Logout
+                <i
+                  className="fa-solid fa-right-from-bracket"
+                  style={{ marginLeft: "5px" }}
+                ></i>
+              </Link>
+            )}
           </nav>
         </div>
       </header>
