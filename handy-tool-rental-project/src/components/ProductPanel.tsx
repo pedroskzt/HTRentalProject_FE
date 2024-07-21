@@ -110,9 +110,6 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
       [productId]: prevQuantities[productId] - 1,
     }));
 
-    console.log("ID:", productId);
-    console.log("rental time:", rentalDays[productId]);
-
     try {
       const response = await fetch(
         "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/RentalCart/Add",
@@ -186,14 +183,11 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
         default:
           activeURL = urlAll;
       }
-      console.log("Fetching url:", activeURL);
+
       const response = await fetch(activeURL);
       const data = await response.json();
 
-      console.log("Raw response data:", data);
-
       if (data.user_error) {
-        console.log("400 error:", data.user_error);
         setError(data.user_error);
         setDataError(data.user_error);
         setProducts([]);

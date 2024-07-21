@@ -69,8 +69,6 @@ const RentalCartPanel: React.FC = () => {
         } else {
           setRentedProducts([data]);
         }
-
-        console.log("Rented:", rentedProducts.length);
       } catch (error) {
         setError("Server error. Please try again.");
         throw new Error("Server error. Please try again.");
@@ -118,8 +116,6 @@ const RentalCartPanel: React.FC = () => {
       }
       // Redirect to proper page
       navigate("/checkoutreview");
-
-      console.log("Review Rented:", rentedProducts.length);
     } catch (error) {
       setError("Server error. Please try again.");
       throw new Error("Server error. Please try again.");
