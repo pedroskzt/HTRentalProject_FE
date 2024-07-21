@@ -135,7 +135,9 @@ const HomePanel: React.FC = () => {
             value={newInputValue}
             onChange={(e) => setNewInputValue(e.currentTarget.value)}
           />
-          <input type="submit" value="Send" />
+          <button className="btn btn-primary" type="submit">
+            Send
+          </button>
         </form>
       </div>
     </div>
