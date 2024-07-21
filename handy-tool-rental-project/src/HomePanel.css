@@ -6,11 +6,11 @@
     padding: 20px;
   }
   
-  .left-section, .right-section {
+  .left-section, .right-section, .text-box {
     flex: 1;
     margin: 10px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 5px solid #ccc;
     border-radius: 8px;
   }
   
@@ -19,7 +19,7 @@
   }
   
   .right-section {
-    background-color: #e0e0e0;
+    background-color: #f0f0f0;
   }
   
   .text-section {
