@@ -13,6 +13,7 @@ const App: React.FC = () => {
   useEffect(() => {
     // Set the active button based on the current location
     const path = location.pathname;
+    console.log("app path:", path);
     switch (path) {
       case "/":
         setActiveButton("home");
@@ -27,6 +28,15 @@ const App: React.FC = () => {
         setActiveButton("cart");
         break;
       case "/profile":
+        setActiveButton("profile");
+        break;
+      case "/changepassword":
+        setActiveButton("profile");
+        break;
+      case "/updateuserinfo":
+        setActiveButton("profile");
+        break;
+      case "/rentalhistory":
         setActiveButton("profile");
         break;
       case "/logout":
