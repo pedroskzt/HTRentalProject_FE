@@ -30,15 +30,13 @@ const HomePanel: React.FC = () => {
       },
     ];
 
-    console.log("messages:", messages);
-    console.log("newInputValue:", newInputValue);
     setMessages(newMessages);
     try {
       const response = await fetch(functionUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}), // Works for both non and authenticated users
         },
         body: JSON.stringify({
           input: newInputValue,
@@ -70,7 +68,6 @@ const HomePanel: React.FC = () => {
         },
       ]);
     }
-    console.log("text:", newMessages);
   };
 
   return (
