@@ -45,14 +45,22 @@ const HomePanel: React.FC = () => {
         {/* Text Section */}
         <div className="text-section">
           <div className="text-box">
-            <h2>About Us</h2>
+            <h2>
+              About Us
+              <i
+                className="fa-regular fa-address-card"
+                style={{ marginLeft: "10px" }}
+              ></i>
+            </h2>
             <p>
               Welcome to Handy Tool Rental, your trusted source for all your
               tool rental needs!
             </p>
           </div>
           <div className="text-box">
-            <h2>Who We Are</h2>
+            <h2>
+              Who We Are <i className="fa-solid fa-users"></i>
+            </h2>
             <p>
               At Handy Tool Rental, we specialize in providing a wide range of
               high-quality tools and equipment for all your project needs.
@@ -62,7 +70,13 @@ const HomePanel: React.FC = () => {
             </p>
           </div>
           <div className="text-box">
-            <h2>Our Mission</h2>
+            <h2>
+              Our Mission
+              <i
+                className="fa-solid fa-bullseye"
+                style={{ marginLeft: "10px" }}
+              ></i>
+            </h2>
             <p>
               Our mission is to make tool rental easy, accessible, and
               affordable for everyone. We believe that the right tools can make
@@ -71,7 +85,9 @@ const HomePanel: React.FC = () => {
             </p>
           </div>
           <div className="text-box">
-            <h2>Why Choose Us?</h2>
+            <h2>
+              Why Choose Us? <i className="fa-regular fa-circle-check"></i>
+            </h2>
             <p>
               Convenience: Easily browse and reserve tools online, and choose
               between delivery or in-store pickup.
@@ -93,14 +109,19 @@ const HomePanel: React.FC = () => {
         {/* Add content for the right section here */}
         <div className="text-section">
           <div className="text-box">
-            <h2>Explore Our Tools</h2>
+            <h2>
+              Explore Our Tools{" "}
+              <i className="fa-solid fa-screwdriver-wrench"></i>
+            </h2>
             <p>
               Browse through our extensive collection of tools and find the
               perfect one for your needs.
             </p>
           </div>
           <div className="text-box">
-            <h2>What We Offer</h2>
+            <h2>
+              What We Offer <i className="fa-solid fa-gift"></i>
+            </h2>
             <ul>
               <li>
                 <strong>Extensive Inventory:</strong> From power tools and hand
@@ -125,7 +146,9 @@ const HomePanel: React.FC = () => {
             </ul>
           </div>
           <div className="text-box">
-            <h2>Contact Us</h2>
+            <h2>
+              Contact Us <i className="fa-solid fa-phone"></i>
+            </h2>
             <p>
               Have questions or need assistance? Feel free to reach out to us!
               You can contact us via email at info@handyrentaltools.com, call us
@@ -134,25 +157,34 @@ const HomePanel: React.FC = () => {
             </p>
           </div>
         </div>
-        <h1>Need Help?</h1>
-        <div>
-          {messages.map((message, index) => (
-            <p key={index} className={"message " + message.sender}>
-              {message.text}
-            </p>
-          ))}
+        <hr className="double" />
+        <div className="text-box text-box-container">
+          <h1>
+            Need Help <i className="fa-regular fa-circle-question"></i>
+          </h1>
+          <div>
+            {messages.map((message, index) => (
+              <p key={index} className={"message " + message.sender}>
+                {message.text}
+              </p>
+            ))}
+          </div>
+          <form className="input-form" onSubmit={newMessage}>
+            <input
+              type="text"
+              placeholder="Ask a question"
+              value={newInputValue}
+              onChange={(e) => setNewInputValue(e.currentTarget.value)}
+            />
+            <button className="btn btn-primary fw-bold" type="submit">
+              Send
+              <i
+                className="fa-solid fa-circle-question"
+                style={{ marginLeft: "5px" }}
+              ></i>
+            </button>
+          </form>
         </div>
-        <form className="input-form" onSubmit={newMessage}>
-          <input
-            type="text"
-            placeholder="Message"
-            value={newInputValue}
-            onChange={(e) => setNewInputValue(e.currentTarget.value)}
-          />
-          <button className="btn btn-primary" type="submit">
-            Send
-          </button>
-        </form>
       </div>
     </div>
   );

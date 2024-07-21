@@ -4,6 +4,7 @@ import { useAuthorization } from "./AuthorizationContext";
 interface RentalHistoryFormProps {
   tools_history_id: number;
   rental_order: number;
+  rental_price: number;
   user: number;
   rent_start_date: string;
   rent_end_date: string;
@@ -162,7 +163,8 @@ const RentalHistoryForm: React.FC = () => {
                           <th scope="col">Tool Name</th>
                           <th scope="col">Tool Brand</th>
                           <th scope="col">Tool Model</th>
-                          <th scope="col">Price (day) </th>
+                          <th scope="col">Unit Price</th>
+                          <th scope="col">Rental Price</th>
                           <th scope="col">Rent Start Date</th>
                           <th scope="col">Rent End Date</th>
                         </tr>
@@ -205,8 +207,14 @@ const RentalHistoryForm: React.FC = () => {
                             </td>
                             <td>
                               {rentHistory.tool && rentHistory.tool.model
-                                ? rentHistory.tool.model.price
-                                : "Unknown"}
+                                ? rentHistory.tool.model.price.split(".")[0] ||
+                                  "0"
+                                : "0"}
+                            </td>
+                            <td>
+                              {rentHistory.rental_price
+                                ? Math.round(rentHistory.rental_price)
+                                : 0}
                             </td>
                             <td>
                               {rentHistory.rent_start_date
