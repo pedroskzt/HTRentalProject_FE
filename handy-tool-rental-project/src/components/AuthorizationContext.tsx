@@ -36,7 +36,6 @@ const AuthorizationProvider: React.FC<{ children: ReactNode }> = ({
     setAccessTokenState(token);
     if (token) {
       localStorage.setItem("accessToken", token);
-      console.log("Access token set:", token);
     } else {
       localStorage.removeItem("accessToken");
     }
@@ -68,8 +67,6 @@ const AuthorizationProvider: React.FC<{ children: ReactNode }> = ({
     setAccessTokenState(token);
     setUsernameState(name);
     setPasswordState(pass);
-
-    console.log("Access token on load:", token);
   }, []);
 
   return (
