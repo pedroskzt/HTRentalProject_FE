@@ -25,5 +25,24 @@
   .text-section {
     text-align: center;
   }
-  
+
+  .text-box-container {
+    border-color:#041956;
+    border-bottom: #045632;
+    border-top: #045632;
+    background: linear-gradient(to right, rgb(229, 154, 184), #6f73c8);
+  }
+
+ 
+
+  hr {
+    border: 1px solid #ccc;
+    margin: 20px 0;
+  }
+
+  hr.double {
+    border: 2;
+    border-top: 3px double #9891db;
+    margin: 20px 0;
+  }
   
