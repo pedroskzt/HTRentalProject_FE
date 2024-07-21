@@ -17,14 +17,14 @@ import CheckoutReviewForm from "./components/CheckoutReviewForm";
 
 const Main: React.FC = () => {
   const product = {
-    id: 1,
+    tools_model_id: 1,
     amount_available: 1,
     brand: "Brand Name",
     model: "Model Name",
     name: "Product Name",
     description: "Product Description",
     category: {
-      id: 1,
+      category_id: 1,
       name: "Category Name",
     },
     price: 100,
