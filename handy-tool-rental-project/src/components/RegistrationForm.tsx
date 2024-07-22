@@ -54,7 +54,7 @@ const RegistrationForm: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api_auth/registration",
+        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api_auth/registration",
         {
           method: "POST",
           headers: {

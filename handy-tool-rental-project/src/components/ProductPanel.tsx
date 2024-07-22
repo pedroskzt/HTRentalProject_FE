@@ -39,21 +39,23 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
   const [availableQuantities, setAvailableQuantities] = useState<{
     [key: number]: number;
   }>({});
-  const [errorProduct, setErrorProduct] = useState<string | null>(null);
+  const [errorProduct, setErrorProduct] = useState<{ [key: number]: string }>(
+    {}
+  );
   const { accessToken } = useAuthorization();
   const navigate = useNavigate();
 
   /** URLs for filter categories */
   const urlAll =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/All";
+    "http://ec2-54-227-38-251.compute-1.amazonaws.com/api/Tools/Models/Get/All";
   const urlDrillsAndHammer =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/1";
+    "http://ec2-54-227-38-251.compute-1.amazonaws.com/api/Tools/Models/Get/ByCategory/1";
   const urlCuttingAndConcrete =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/2";
+    "http://ec2-54-227-38-251.compute-1.amazonaws.com/api/Tools/Models/Get/ByCategory/2";
   const urlFloorCareAndSanding =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/3";
+    "http://ec2-54-227-38-251.compute-1.amazonaws.com/api/Tools/Models/Get/ByCategory/3";
   const urlByID =
-    "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/Tools/Models/Get/";
+    "http://ec2-54-227-38-251.compute-1.amazonaws.com/api/Tools/Models/Get/";
 
   const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedOptionValue = e.target.value;
@@ -95,15 +97,31 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
   const handleAddToCart = (productId: number) => async () => {
     const days = rentalDays[productId] || 0;
     if (days === 0) {
-      setErrorProduct("Please select at least 1 rental day.");
+      setErrorProduct((prevErrors) => ({
+        ...prevErrors,
+        [productId]: "Please select at least 1 rental day.",
+      }));
       return;
     }
 
     const currentAmount = availableQuantities[productId] || 0;
     if (currentAmount <= 0) {
-      setErrorProduct("Product is out of stock.");
+      setErrorProduct((prevErrors) => ({
+        ...prevErrors,
+        [productId]: "Product is out of stock.",
+      }));
       return;
     }
+    // if (days === 0) {
+    //   setErrorProduct(["Please select at least 1 rental day."]);
+    //   return;
+    // }
+
+    // const currentAmount = availableQuantities[productId] || 0;
+    // if (currentAmount <= 0) {
+    //   setErrorProduct(["Product is out of stock."]);
+    //   return;
+    // }
 
     setAvailableQuantities((prevQuantities) => ({
       ...prevQuantities,
@@ -112,7 +130,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
 
     try {
       const response = await fetch(
-        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/RentalCart/Add",
+        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/payment/RentalCart/Add",
         {
           method: "POST",
           headers: {
@@ -133,7 +151,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
       // Response available
       if (response.status === 200 || response.ok) {
         setError(null);
-        setErrorProduct(null);
+        setErrorProduct([]);
         console.log("Add to cart successful.");
         navigate("/cart");
       } else {
@@ -478,8 +496,11 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
                           />
                         </button>
 
-                        {errorProduct && (
-                          <div className="text-danger">{errorProduct}</div>
+                        {/* Error message for this product */}
+                        {errorProduct[product.tools_model_id] && (
+                          <p className="error-message">
+                            {errorProduct[product.tools_model_id]}
+                          </p>
                         )}
                       </p>
                     </div>

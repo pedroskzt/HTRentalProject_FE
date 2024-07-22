@@ -18,7 +18,7 @@ const UpdateUserInfoForm: React.FC = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api_auth/User/Get/Info",
+          "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api_auth/User/Get/Info",
           {
             method: "GET",
             headers: {
@@ -86,7 +86,7 @@ const UpdateUserInfoForm: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api_auth/User/Update",
+        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api_auth/User/Update",
         {
           method: "POST",
           headers: {

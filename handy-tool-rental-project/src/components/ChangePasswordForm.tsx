@@ -39,7 +39,7 @@ const ChangePasswordForm: React.FC = () => {
     // Call API
     try {
       const response = await fetch(
-        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api_auth/ChangePassword",
+        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api_auth/ChangePassword",
         {
           method: "POST",
           headers: {

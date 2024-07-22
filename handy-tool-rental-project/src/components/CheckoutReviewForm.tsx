@@ -62,7 +62,7 @@ const CheckoutReviewForm: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/Checkout/Review",
+        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/payment/Checkout/Review",
         {
           method: "POST",
           headers: {
@@ -177,7 +177,7 @@ const CheckoutReviewForm: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/RentalCart/Update",
+        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/payment/RentalCart/Update",
         {
           method: "POST",
           headers: {
@@ -209,7 +209,7 @@ const CheckoutReviewForm: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/payment/Checkout/Pay",
+        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/payment/Checkout/Pay",
         {
           method: "POST",
           headers: {

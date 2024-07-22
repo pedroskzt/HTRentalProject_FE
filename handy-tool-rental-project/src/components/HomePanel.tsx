@@ -5,7 +5,7 @@ import { useAuthorization } from "./AuthorizationContext";
 
 // insert function URL for openAI here:
 const functionUrl =
-  "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api/ChatBot/Input";
+  "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api/ChatBot/Input";
 
 type Message = {
   text: string;
