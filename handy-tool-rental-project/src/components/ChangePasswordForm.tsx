@@ -69,10 +69,18 @@ const ChangePasswordForm: React.FC = () => {
         }
       }
     } catch (error) {
-      console.error("error:" + error);
-      setErrorMessages(["An error occurred. Please try again."]);
+      if (error instanceof SyntaxError) {
+        console.warn("JSON Syntax Error:", error);
+        // Navigate to the next page despite the syntax error
+        navigate("/login");
+      } else {
+        console.error("error:" + error);
+        setErrorMessages(["An error occurred. Please try again."]);
+        throw error;
+        return;
+      }
+    } finally {
       setIsLoading(false);
-      return;
     }
   };
 
