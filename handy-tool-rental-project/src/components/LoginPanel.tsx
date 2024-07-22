@@ -29,7 +29,7 @@ const LoginPanel: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api_auth/Login",
+        "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/api_auth/Login",
         {
           method: "POST",
           headers: {

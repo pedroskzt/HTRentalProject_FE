@@ -40,7 +40,7 @@ const RentalCartPanel: React.FC = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/payment/RentalCart/Get",
+          "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/payment/RentalCart/Get",
           {
             method: "GET",
             headers: {
@@ -85,7 +85,7 @@ const RentalCartPanel: React.FC = () => {
     setError(null);
     try {
       const response = await fetch(
-        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/payment/Checkout/Review",
+        "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/payment/Checkout/Review",
         {
           method: "POST",
           headers: {

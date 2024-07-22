@@ -47,15 +47,15 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
 
   /** URLs for filter categories */
   const urlAll =
-    "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api/Tools/Models/Get/All";
+    "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/api/Tools/Models/Get/All";
   const urlDrillsAndHammer =
-    "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/1";
+    "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/1";
   const urlCuttingAndConcrete =
-    "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/2";
+    "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/2";
   const urlFloorCareAndSanding =
-    "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/3";
+    "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/api/Tools/Models/Get/ByCategory/3";
   const urlByID =
-    "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api/Tools/Models/Get/";
+    "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/api/Tools/Models/Get/";
 
   const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedOptionValue = e.target.value;
@@ -120,7 +120,7 @@ const ProductPanel: React.FC<ProductProps> = ({ product }) => {
 
     try {
       const response = await fetch(
-        "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/payment/RentalCart/Add",
+        "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/payment/RentalCart/Add",
         {
           method: "POST",
           headers: {

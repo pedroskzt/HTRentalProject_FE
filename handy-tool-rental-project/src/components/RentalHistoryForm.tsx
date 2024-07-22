@@ -45,7 +45,7 @@ const RentalHistoryForm: React.FC = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "http://ec2-54-227-38-251.compute-1.amazonaws.com:27015/api/Tools/History/Get/ByUser",
+          "http://ec2-3-222-139-134.compute-1.amazonaws.com:27015/api/Tools/History/Get/ByUser",
           {
             method: "GET",
             headers: {
