@@ -42,6 +42,16 @@ const RegistrationForm: React.FC = () => {
     }
 
     // Call Registration API
+    const payload = {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      password: password,
+      address: address,
+      phone_number: phone_number,
+    };
+    console.log("api reg:", JSON.stringify(payload));
+
     try {
       const response = await fetch(
         "http://ec2-52-91-173-244.compute-1.amazonaws.com:27015/api_auth/registration",
@@ -50,32 +60,37 @@ const RegistrationForm: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            first_name,
-            last_name,
-            email,
-            password,
-            address,
-            phone_number,
-          }),
+          body: JSON.stringify(payload),
         }
       );
 
-      const data = await response.json();
       setIsLoading(false);
-
+      const data = await response.json();
       // Response available
-      if (response.status === 200 || response.status === 201) {
+      if (response.ok || response.status === 200 || response.status === 201) {
         console.log("Registration successful: Data" + response.body);
-        // onRegisterSuccess();
+
         navigate("/login");
       } else {
-        console.error("Registration failed. Message=", response.statusText);
-        setError(response.statusText || "Registration failed");
+        if (data.user_error) {
+          console.error(data.user_error);
+          setError(data.user_error);
+        } else {
+          console.error("Registration failed. Message=", response.statusText);
+          setError(response.statusText || "Registration failed");
+        }
       }
     } catch (error) {
-      console.error("error:" + error);
-      setError("An error occurred. Please try again.");
+      if (error instanceof SyntaxError) {
+        console.warn("JSON Syntax Error:", error);
+        // Navigate to the next page despite the syntax error
+        navigate("/login");
+      } else {
+        console.error("error:" + error);
+        setError("An error occurred. Please try again.");
+        throw error;
+      }
+    } finally {
       setIsLoading(false);
     }
   };
